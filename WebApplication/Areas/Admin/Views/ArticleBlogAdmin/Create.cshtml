@@ -1,0 +1,120 @@
+﻿@using DAL.Dtos;
+@model DAL.Dtos.ArticleBlogDto
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    List<SelectListItem> listStatus = ViewBag.ListStatus;
+
+    Model.ImageIds = new List<ImageDto>(); 
+    Model.ImageIds.Add(new ImageDto());
+}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row m-0 bg-light">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Thêm Bài viết</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                        <li class="breadcrumb-item active">Thêm bài viết</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+  
+    <section class="container pt-2 card">
+        <partial name="~/Areas/Admin/Views/Shared/_MessgeAlert.cshtml">
+        <div class="container bg-white pt-4 ">
+
+            @using (Html.BeginForm("Create", "ArticleBlogAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class=" row ">
+                    <div class="col-md-4">  </div>
+                    <div class="col-md-4"> <h3 class="text-center font-weight-bold text-success "> THÊM BÀI VIẾT</h3> </div>
+                    <div class="col-md-4 ">
+                        <div class="float-right">
+                            <button type="submit" class="btn btn-sm bg-success text-white"><i class="far fa-save"></i> Lưu</button>
+                            <a href="~/admin/articleblogadmin/articlebloglist" class="btn btn-sm bg-danger text-white"><i class="far fa-window-close"></i> Hủy</a>
+                        </div>
+                    </div>
+                </div>
+                <div class=" row ">
+                    <div class="col-md-8">
+                        <div>
+                            <label for="psw"><span class="text-secondary ">Tiêu đề bài viết</span></label>
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label for="psw"><span class="text-secondary ">Mở đề bài viết</span></label>
+                            @Html.EditorFor(model => model.Sapo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Sapo, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label for="psw"><span class="text-secondary ">Nội dung bài viết</span></label>
+                            @Html.TextAreaFor(model => model.Content, new
+                            {
+                                @class = "form-control textarea",
+                                @style = "width: 100%;font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
+                            })
+                            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label for="psw"><span class="text-secondary ">Tác giả</span></label>
+                            @Html.EditorFor(model => model.Authors, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Authors, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label for="psw"><span class="text-secondary ">Metakeyword</span></label>
+                            @Html.EditorFor(model => model.MetaTitle, new { htmlAttributes = new { @class = "form-control " } })
+                            @Html.ValidationMessageFor(model => model.MetaTitle, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label for="psw"><span class="text-secondary ">Metadescription</span></label>
+                            @Html.EditorFor(model => model.MetaDescription, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MetaDescription, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <label for="psw"><span class="text-secondary ">Avatar</span></label>
+                            <div>
+                                <span id="imagePreview-1">
+                                    <img class="img-1" style="height:30px" src=@("/Resource/AllImages/" + Model.ImageIds[0].ImageName) asp-append-version="true" alt="" />
+                                </span>
+                                @Html.EditorFor(model => model.ImageIds[0].ImageFile, "", new { htmlAttributes = new { type = "file", @class = "form-control editor-img" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ImageIds, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label for="psw"><span class="text-secondary ">Trạng Thái</span></label>
+                            @Html.DropDownListFor(model => model.Status, listStatus, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</div>
+@section Scripts{
+    <script src="~/js/admin.min.js"></script>
+    <script>
+        $("#post").addClass("active");
+        $(function () {
+            // Summernote
+            $('.textarea').summernote()
+        })
+    </script>
+}

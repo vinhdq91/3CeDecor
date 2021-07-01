@@ -1,0 +1,117 @@
+﻿@using DAL.Common
+@using DAL.Dtos
+@using DAL.Core.Enums
+
+@model DAL.Dtos.ArticleBlogDto
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row m-0 bg-light">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Chi tiết bài viết</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                        <li class="breadcrumb-item active">Chi tiết bài viết</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <section class="pt-2">
+        <div class="container bg-white p-4 card">
+            <div>
+                <h4>@Model.Title</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dd>
+                        <div>
+                            <b>@Model.Sapo </b>
+                        </div>
+                    </dd>
+
+                    <dd>
+                        <div>
+                            <p>@Html.Raw(Model.Content)</p>
+                        </div>
+                    </dd>
+
+                    <dd>
+                        <div>
+                            <b>Tác giả: </b> @Model.Authors
+                        </div>
+                    </dd>
+
+                    <dd>
+                        <div>
+                            <b>Avatar: </b>
+                            @foreach (ImageDto item in Model.ImageIds)
+                            {
+                                <img class="lazyload" style="height:80px" src=@("/Resource/AllImages/" + item.ImageName) asp-append-version="true" alt="" />
+                            }
+                        </div>
+                    </dd>
+                    <dd>
+                        <div>
+                            <b>Metatitle: </b> @Model.MetaTitle
+                        </div>
+                    </dd>
+                    <dd>
+                        <div>
+                            <b>MetaDescription: </b> @Model.MetaDescription
+                        </div>
+                    </dd>
+                    <dd>
+                        <div>
+                            <b>Ngày tạo: </b> @Model.CreatedDate
+                        </div>
+                    </dd>
+                    <dd>
+                        <div>
+                            <b>Ngày update gần nhất: </b> @Model.UpdatedDate
+                        </div>
+                    </dd>
+                    <dd>
+                        <div>
+                            <b>Trạng thái: </b>
+                            @if (Model.Status == (int)ProductStatus.Active)
+                            {
+                                <span class="btn btn-primary">Đã xuất bản</span>
+                            }
+                            @if (Model.Status == (int)ProductStatus.UnActive)
+                            {
+                                <span class="btn btn-danger">Chưa xuất bản</span>
+                            }
+                            @if (Model.Status == (int)ProductStatus.OutDate)
+                            {
+                                <span class="btn btn-warning">Hết hạn</span>
+                            }
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("ArticleBlogAdmin", "Edit", new { productId = Model.Id }) |
+                @Html.ActionLink("ArticleBlogAdmin", "ArticleBlogList")
+            </p>
+        </div>
+    </section>
+</div>
+@section Scripts{
+    <script>
+            $(function () {
+                // Summernote
+                $('.textarea').summernote()
+            })
+    </script>
+}

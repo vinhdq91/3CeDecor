@@ -1,0 +1,135 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using DAL.Models.Application;
+@using DAL.Common;
+@model List<DAL.Models.Application.CartItemDto>
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="cart-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="car-header-title">
+                    <h2>Giỏ hàng của bạn</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area start -->
+<div class="breadcrumb-area product-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb">
+                    <ul>
+                        <li><a href="/">Trang chủ <i class="fa fa-angle-right"></i></a></li>
+                        <li>Giỏ Hàng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area end -->
+<!-- cart-main-area start -->
+<div class="cart-main-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="text-align:center;margin-bottom:10px" class="table-content table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="product-thumbnail">Hình ảnh</th>
+                                <th class="product-name">Tên sản phẩm</th>
+                                <th class="product-price">Giá</th>
+                                <th class="product-quantity">Số lượng</th>
+                                <th class="product-subtotal">Tổng tiền</th>
+                                <th class="product-remove">Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                @foreach (CartItemDto item in Model)
+                                {
+                                    var subTotal = (item.Product.Price - (item.Product.Price * (decimal)item.Product.Discount) / 100) * item.Quantity;
+                                    <tr>
+                                        <td class="product-thumbnail">
+                                            <a href="@item.Product.UrlPath">
+                                                <img src=@("~/Resource/AllImages/" + item.Product.ImageIds.ToList()[0].ImageName) asp-append-version="true" alt="" />
+                                            </a>
+                                        </td>
+                                        <td class="product-name"><a href="#">@item.Product.Name</a></td>
+                                        <td class="product-price product-content">
+                                            @if (item.Product.Discount > 0)
+                                            {
+                                                <span class="old-price">@Common.FomatPrice(item.Product.Price * item.Quantity)</span><br />
+                                            }
+                                            <span class="pro-price">@Common.FomatPrice((item.Product.Price - (item.Product.Price * (decimal)item.Product.Discount) / 100) * item.Quantity)</span><br />
+                                        </td>
+                                        <td class="product-quantity"><input type="number" id="quantity-@item.Product.Id" onchange="shoppingCart.ChangeQuantityOfProduct(@item.Product.Id)" value="@item.Quantity" /></td>
+                                        <td class="product-subtotal">@Common.FomatPrice(subTotal)</td>
+                                        <td class="product-remove">
+                                            <a asp-controller="CartItems" asp-action="Remove" asp-route-id="@item.Product.Id"><i class="fa fa-times"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    @if (Model.Count == 0)
+                    {
+                        <span>Chưa có sản phẩm nào trong giỏ hàng.</span>
+                        <hr />
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-sm-7">
+                        <div class="buttons-cart">
+                            <a asp-controller="Products" asp-action="ProductList">Tiếp tục mua sắm</a>
+                        </div>
+                        <div class="col-md-7 col-xs-12 cart-right-block">
+                            <div class="policy_return">
+                                <h4>Chính sách Đổi/Trả</h4>
+                                <ul style="list-style-type:circle">
+                                    <li>Quý khách được xem hàng trước khi nhận. Không mất phí nếu không nhận hàng.</li>
+                                    <li>Hỗ trợ đổi size cho khách trong 07 ngày.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-5">
+                        <div class="cart_totals">
+                            <h2>Thông tin đơn hàng</h2>
+                            <table>
+                                <tbody>
+                                    <tr class="order-total">
+                                        <th>Tổng giá trị đơn hàng</th>
+                                        <td>
+                                            <strong><span class="amount">@Common.FomatPrice(ViewBag.Total)</span></strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <hr />
+                                            <p>Quý khách có thể nhập mã giảm giá và xem phí ship ở trang thanh toán.</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="wc-proceed-to-checkout">
+                                <a href="/check-out">Đến trang thanh toán <i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- cart-main-area end -->
+@await Component.InvokeAsync("_RelatedProducts", new { productId = Model[0].Product.Id })

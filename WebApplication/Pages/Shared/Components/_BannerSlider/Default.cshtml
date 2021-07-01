@@ -1,0 +1,88 @@
+﻿@using DAL.Dtos;
+@using DAL.Core.Enums;
+@model List<GalleryDto>
+<!-- HOME SLIDER -->
+
+<div class="slider-wrap">
+    <div class="fullwidthbanner-container">
+        <div class="fullwidthbanner1">
+            <ul>
+                @foreach (GalleryDto item in Model)
+                {
+                <li data-transition="random" data-slotamount="7" data-masterspeed="1000">
+                    @if (item.GalleryType == (int)GalleryType.HomeVideo)
+                    {
+                        <iframe width="1920" height="650"
+                                src="@item.LinkVideoEmbed">
+                        </iframe>
+                    }
+                    else
+                    {
+                        @*<a href="@item.UrlForward" title="Bắt đầu mua sắm"></a>*@
+                        <img style="width:100%;height:100%" src="@item.ImagePath" alt="slide">
+                    }
+                    @if (!string.IsNullOrEmpty(item.SlideName))
+                    {
+                        <div class="tp-caption large_black sfr"
+                             data-x="350"
+                             data-y="150"
+                             data-speed="1100"
+                             data-start="1100"
+                             data-easing="easeInOutBack"
+                             style="font-size: 25px; font-weight: bold; text-transform: uppercase; color: @item.ColorCode;font-family: Montserrat;background:white;padding:9px">
+                            @item.SlideName
+                        </div>
+                        <div class="tp-caption large_black sfr top-192"
+                             data-x="350" data-y="175"
+                             data-speed="1100"
+                             data-start="1100"
+                             data-easing="easeInOutBack"
+                             style="border-width: 2px; background-color: #ffffff; min-height: 1px;min-width: 400px;top:193px !">
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(item.SlideTitle))
+                    {
+                        <div class="tp-caption large_black sfr"
+                             data-x="350"
+                             data-y="200"
+                             data-speed="1100"
+                             data-start="1400"
+                             data-easing="easeInOutBack"
+                             style="font-family: Raleway; font-size: 50px; font-weight: 700; line-height:80px;text-transform: uppercase; color: @item.ColorCode; text-shadow: 0 0 2px rgba(0,0,0,.05)">
+                            @item.SlideTitle
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(item.SlideContent))
+                    {
+                        <div class="tp-caption large_black sfr"
+                             data-x="350"
+                             data-y="300"
+                             data-speed="1100"
+                             data-start="1400"
+                             data-easing="easeInOutBack"
+                             style="font-family: Arial; font-size: 30px; font-weight: normal; color: @item.ColorCode;line-height:25px;text-transform: capitalize;background:white;padding:15px">
+                            @item.SlideContent
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(item.SlideName) && !string.IsNullOrEmpty(item.SlideTitle))
+                    {
+                        <div class="tp-caption lfb carousel-caption-inner"
+                             data-x="350"
+                             data-y="400"
+                             data-speed="1300"
+                             data-start="1700"
+                             data-easing="easeInOutBack"
+                             style="font-family: Montserrat; font-size: 12px; font-weight: bold; text-transform: uppercase; color: #F3F3F3;">
+                            <a href="#" target="_blank"><img src="img/slider/slider-1/shopping.jpg" alt=""></a>
+                        </div>
+                    }
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- HOME SLIDER END -->

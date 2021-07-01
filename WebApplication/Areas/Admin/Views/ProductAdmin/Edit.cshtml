@@ -1,0 +1,187 @@
+﻿@using DAL.Dtos
+@model DAL.Dtos.ProductDto
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    List<SelectListItem> listCat = ViewBag.ListCategories;
+    List<SelectListItem> listStatus = ViewBag.ListStatus;
+    List<SelectListItem> listSize = ViewBag.ListSize;
+    List<SelectListItem> listTopic = ViewBag.ListTopic;
+
+    if (Model.ImageIds.Count == 0)
+    {
+        Model.ImageIds.Add(new ImageDto());
+        Model.ImageIds.Add(new ImageDto());
+        Model.ImageIds.Add(new ImageDto());
+        Model.ImageIds.Add(new ImageDto());
+        Model.ImageIds.Add(new ImageDto());
+    }
+    if (Model.ImageIds.Count == 1)
+    {
+        Model.ImageIds.Add(new ImageDto());
+        Model.ImageIds.Add(new ImageDto());
+        Model.ImageIds.Add(new ImageDto());
+        Model.ImageIds.Add(new ImageDto());
+    }
+    if (Model.ImageIds.Count == 2)
+    {
+        Model.ImageIds.Add(new ImageDto());
+        Model.ImageIds.Add(new ImageDto());
+        Model.ImageIds.Add(new ImageDto());
+    }
+    if (Model.ImageIds.Count == 3)
+    {
+        Model.ImageIds.Add(new ImageDto());
+        Model.ImageIds.Add(new ImageDto());
+    }
+    if (Model.ImageIds.Count == 4)
+    {
+        Model.ImageIds.Add(new ImageDto());
+    }
+}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row m-0 bg-light">
+                <div class="col-sm-6 ">
+                    <h1 class="m-0 text-dark">Cập Nhật Sản Phẩm</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                        <li class="breadcrumb-item active">Cập nhật sản phẩm</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+
+    <section class="pt-2">
+        <partial name="~/Areas/Admin/Views/Shared/_MessgeAlert.cshtml">
+        <div class="container bg-white p-4 card">
+
+            @using (Html.BeginForm("Edit", "ProductAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.CreatedDate)
+                @Html.HiddenFor(model => model.CreatedBy)
+                @Html.HiddenFor(model => model.ProductCurrentType)
+                <div class=" row ">
+                    <div class="col-md-4">  </div>
+                    <div class="col-md-4"> <h3 class="text-center font-weight-bold text-success "> CẬP NHẬT SẢN PHẨM</h3> </div>
+                    <div class="col-md-4 ">
+                        <div class="float-right">
+                            <button class="btn btn-sm bg-success text-white"><i class="far fa-save"></i> Lưu</button>
+                            <a href="/admin" class="btn btn-sm bg-danger text-white"><i class="far fa-window-close"></i> Hủy</a>
+                        </div>
+                    </div>
+                </div>
+                <div class=" row ">
+                    <div class="col-md-8">
+                        <div>
+                            <label for="psw"><span class="text-dark col-form-label">Tên Sản Phẩm</span></label>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label for="psw"><span class="text-dark ">Chi tiết sản phẩm</span></label>
+                            @Html.TextAreaFor(model => model.Description, new
+                            {
+                                @class = "form-control textarea",
+                            @style = "width: 100%;font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
+                            })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <label for="psw"><span class="text-dark ">Từ khóa SEO</span></label>
+                            @Html.EditorFor(model => model.MetaTitle, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MetaTitle, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label for="psw"><span class="text-dark ">Mô ta SEO</span></label>
+                            @Html.EditorFor(model => model.MetaDescription, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MetaDescription, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label for="psw"><span class="text-dark ">Chọn ít nhất một loại sản phẩm</span></label>
+                            @Html.ListBoxFor(model => model.ProductCategoryIds, listCat, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProductCategoryIds, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label for="psw"><span class="text-dark ">Chọn kích thước</span></label>
+                            @Html.DropDownListFor(model => model.Size, listSize, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Size, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label for="psw"><span class="text-dark ">Giá tiền</span></label>
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { min = "1000", step = "1000", Type = "number", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label for="psw"><span class="text-dark ">Phần Trăm Khuyến mãi (mặc định 0%)</span></label>
+                            @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { min = "0", step = "1", max = "100", Type = "number", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label for="psw"><span class="text-dark ">Số lượng trong kho (Number in Stock)</span></label>
+                            @Html.EditorFor(model => model.NumberInStock, new { htmlAttributes = new { min = "1", step = "1", Type = "number", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NumberInStock, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label for="psw"><span>Topic</span></label>
+                            @Html.DropDownListFor(model => model.ProductType, listTopic, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProductType, "", new { @class = "text-danger" })
+                        </div>
+                        @for (int i = 0; i < Model.ImageIds.Count; i++)
+                        {
+                            <div>
+                                <label for="psw"><span>Hình ảnh sản phẩm @(i + 1)</span></label>
+                                <div>
+                                    <span id="imagePreview-@(i+1)">
+                                        <img id="img-@(i+1)" style="height:30px" src=@("/Resource/AllImages/" + Model.ImageIds[i].ImageName) asp-append-version="true" alt="" />
+                                    </span>
+                                    @Html.EditorFor(model => model.ImageIds[i].ImageFile, "", new { htmlAttributes = new { type = "file", @class = "form-control editor-img" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.ImageIds[i].ImageFile, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.ImageIds[i].ImageId)
+                                @Html.HiddenFor(model => model.ImageIds[i].ImageName)
+                            </div>
+                        }
+                        <div>
+                            <label for="psw"><span class="text-dark ">Trạng Thái </span></label>
+                            @Html.DropDownListFor(model => model.Status, listStatus, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</div>
+
+@section Scripts{
+    <script src="~/js/admin.min.js"></script>
+    <script>
+        $(function () {
+            // Summernote
+            $('.textarea').summernote()
+        })
+    </script>
+    <script>
+        $("#product").addClass("active");
+    </script>
+}
+
+

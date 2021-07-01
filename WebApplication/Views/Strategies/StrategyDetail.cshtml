@@ -1,0 +1,188 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Mvc.Rendering;
+@using DAL.Common;
+@using DAL.Models.Application;
+@model DAL.Dtos.ProductListModel
+@{
+    Layout = "_Layout";
+    string className = "";
+    int firstProductOfPageIndex = (Model.Paging.PageSize * (Model.Paging.PageIndex - 1)) + 1;
+    int lastProductOfPageIndex = firstProductOfPageIndex + (Model.ListProducts.Count - 1);
+    string productListInfo = Model.Paging.Count > 0 ?
+                                string.Format("Showing {0}–{1} of {2} results", firstProductOfPageIndex, lastProductOfPageIndex, Model.Paging.Count)
+                                : "No product has found";
+
+    List<ProductCategoryEntity> lstProductCategory = ViewBag.ListProductCategory;
+}
+
+<!-- blog-header-area start -->
+<div class="shop-header-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="shop-header-title">
+                    <h1>Mua sắm theo loại sản phẩm</h1>
+                    <div class="shop-menu">
+                        <ul>
+                            <li><a href="/product-search/tat-ca">Tất cả</a></li>
+
+                            @foreach (var item in lstProductCategory)
+                            {
+                                <li><a href="/product-search/@item.UrlName">@item.Name</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- blog-header-area end -->
+<!-- breadcrumb-area start -->
+<div class="breadcrumb-area shop-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="/">Trang chủ <i class="fa fa-angle-right"></i></a></li>
+                <li>Chiến dịch</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area end -->
+<!-- shop-main-area start -->
+<div class="blog-main-area">
+    <div class="container">
+        <div class="row">
+            <!-- sidebar start -->
+            <div class="col-lg-3 col-md-3 col-sm-12 ">
+                <!-- shop-categories start -->
+                <div class="shop-categories shop-space">
+                    <h2 class="shop-sidebar-title"><span>Recent Posts</span></h2>
+                    <ul class="sidebar-menu">
+                        <li><a href="#">Accessories</a> <span> (17)</span></li>
+                        <li><a href="#">Digital</a> <span> (5)</span></li>
+                        <li><a href="#">Kids</a> <span> (15)</span></li>
+                        <li><a href="#">Shoes</a> <span> (10)</span></li>
+                    </ul>
+                </div>
+                <!-- shop-categories end -->
+                @Html.RenderAction("BoxFilterByPrice", "Products", new { categoryId = ViewBag.CategoryId, textSearch = ViewBag.TextSearch })
+                @Html.RenderAction("BoxLatestProducts", "Products")
+            </div>
+            <!-- sidebar end -->
+            <div class="col-lg-9 col-md-9 col-sm-12">
+                <div class="row">
+                    <!-- toolbar start -->
+                    <div class="col-md-12 col-sm-12">
+                        <div class="toolbar">
+                            @Html.RenderAction("Index", "Paging", Model.Paging)
+                            <div class="show-result">
+                                <p>@productListInfo</p>
+                            </div>
+                            @if (Model.ListProducts.Count > 1)
+                            {
+                                <div class="toolbar-form">
+                                    <form action="#">
+                                        <div class="tolbar-select">
+                                            <p>Sắp xếp</p>
+                                            <select id="product-sort">
+                                                <option value="0">Default sorting</option>
+                                                <option value="1">Sắp xếp sản phẩm mới nhất</option>
+                                                <option value="2">Sắp xếp sản phẩm cũ nhất</option>
+                                                <option value="3">Sắp xếp giá từ thấp nhất</option>
+                                                <option value="4">Sắp xếp giá từ cao nhất</option>
+                                                <option value="5">Sắp xếp sản phẩm bán chạy nhất</option>
+                                                <option value="6">Sắp xếp sản phẩm ít bán chạy nhất</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <!-- toolbar end -->
+                    <!-- shop-product-details start -->
+                    <div class="shop-product-details shop-product-list">
+                        @foreach (var item in Model.ListProducts)
+                        {
+                            <!-- single-features start -->
+                            <div class="col-md-12 col-sm-12">
+                                <div class="single-features">
+                                    <div class="product-img strategy-list">
+                                        <a href="@item.UrlPath">
+                                            @for (int i = 0; i < item.ImageIds.Count; i++)
+                                            {
+                                                {
+                                                    className = i == 0 ? "first-img" : "second-img";
+                                                }
+                                                <img style="width:282px;height:371px" class="lazyload @className" src=@("~/Resource/AllImages/" + item.ImageIds.ToList()[i].ImageName) asp-append-version="true" alt="" />
+                                            }
+                                        </a>
+                                        @if (item.Discount > 0)
+                                        {
+                                            <span class="sale-text">Sale</span>
+                                        }
+                                    </div>
+                                    <div class="product-content strategy-list">
+                                        <h5><a href="@item.UrlPath">@item.Name</a></h5>
+                                        <div class="pro-rating">
+                                            <a href="#"><i class="fa fa-star"></i></a>
+                                            <a href="#"><i class="fa fa-star"></i></a>
+                                            <a href="#"><i class="fa fa-star"></i></a>
+                                            <a href="#"><i class="fa fa-star"></i></a>
+                                        </div>
+                                        @if (item.Discount > 0)
+                                        {
+                                            <span class="old-price" style="font-size: 18px">@Common.FomatPrice(item.Price)</span>
+                                        }
+                                        <span class="pro-price" style="font-size: 20px">@Common.FomatPrice(((item.Price - (item.Price * (decimal)item.Discount) / 100)))</span>
+                                        <div class="shop-desc">
+                                            <p>@item.Description</p>
+                                        </div>
+                                        <div class="action-buttons" style="cursor:pointer">
+                                            <a class="add-to-cart" onclick="shoppingCart.AddToCart(@item.Id)">
+                                                <i class="fa fa-shopping-cart"></i> <span>Giỏ Hàng</span>
+                                            </a>
+                                            <a class="favourite" href="#"><i class="fa fa-heart-o"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- single-features end -->
+                        }
+                        <!-- toolbar start -->
+                        <div class="col-md-12 col-sm-12">
+                            <div class="toolbar toolbar-border">
+                                @Html.RenderAction("Index", "Paging", Model.Paging)
+                                <div class="show-result">
+                                    <p>@productListInfo</p>
+                                </div>
+                                <div class="toolbar-form">
+                                    <form action="#">
+                                        <div class="tolbar-select">
+                                            <p>Sort by</p>
+                                            <select>
+                                                <option value="volvo">Default sorting</option>
+                                                <option value="saab">Sort by popularity</option>
+                                                <option value="mercedes">Sort by popularity</option>
+                                                <option value="audi">Sort by newness</option>
+                                                <option value="audi">Sort by price: low to high</option>
+                                                <option value="audi">Sort by price: high to low</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- toolbar end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- blog-main-area end -->
+@section Scripts {
+    <script src="~/lib/jquery-format-currency/jquery.formatCurrency-1.4.0.js"></script>
+}

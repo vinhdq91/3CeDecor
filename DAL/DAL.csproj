@@ -1,0 +1,78 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20201006151309_no-command.cs" />
+    <Compile Remove="Migrations\20201006151309_no-command.Designer.cs" />
+    <Compile Remove="Migrations\20201010075901_Product_Add_ProductType.cs" />
+    <Compile Remove="Migrations\20201010075901_Product_Add_ProductType.Designer.cs" />
+    <Compile Remove="Migrations\20201010080634_Product_Add_ProductType_2.cs" />
+    <Compile Remove="Migrations\20201010080634_Product_Add_ProductType_2.Designer.cs" />
+    <Compile Remove="Migrations\20201010081238_Product_Add_ProductType_3.cs" />
+    <Compile Remove="Migrations\20201010081238_Product_Add_ProductType_3.Designer.cs" />
+    <Compile Remove="Migrations\20201011235657_Product_ArticleBlog_Add_UrlPath.cs" />
+    <Compile Remove="Migrations\20201011235657_Product_ArticleBlog_Add_UrlPath.Designer.cs" />
+    <Compile Remove="Migrations\20201121160131_Add_More_Properties.cs" />
+    <Compile Remove="Migrations\20201121160131_Add_More_Properties.Designer.cs" />
+    <Compile Remove="Migrations\20201128091533_Add_Status_ArticleBlog.cs" />
+    <Compile Remove="Migrations\20201128091533_Add_Status_ArticleBlog.Designer.cs" />
+    <Compile Remove="Migrations\20201201060141_Try_Cashier1.cs" />
+    <Compile Remove="Migrations\20201201060141_Try_Cashier1.Designer.cs" />
+    <Compile Remove="Migrations\20201201075120_Remove_DiscountCodeId_Order.cs" />
+    <Compile Remove="Migrations\20201201075120_Remove_DiscountCodeId_Order.Designer.cs" />
+    <Compile Remove="Migrations\20201204041550_Add_aspnetuserroles_table.cs" />
+    <Compile Remove="Migrations\20201204041550_Add_aspnetuserroles_table.Designer.cs" />
+    <Compile Remove="Migrations\20201205110311_Set_NullAble_ProductEntityId_OrderDetailEntity.cs" />
+    <Compile Remove="Migrations\20201205110311_Set_NullAble_ProductEntityId_OrderDetailEntity.Designer.cs" />
+    <Compile Remove="Migrations\20201208072804_Create_Gallery_1.cs" />
+    <Compile Remove="Migrations\20201208072804_Create_Gallery_1.Designer.cs" />
+    <Compile Remove="Migrations\20201210044107_Add_Properties_Gallery.cs" />
+    <Compile Remove="Migrations\20201210044107_Add_Properties_Gallery.Designer.cs" />
+    <Compile Remove="Migrations\20201210135756_Update_Appnetuserroles.cs" />
+    <Compile Remove="Migrations\20201210135756_Update_Appnetuserroles.Designer.cs" />
+    <Compile Remove="Migrations\20201211092720_initial.cs" />
+    <Compile Remove="Migrations\20201211092720_initial.Designer.cs" />
+    <Compile Remove="Migrations\20201211093202_initial.cs" />
+    <Compile Remove="Migrations\20201211093202_initial.Designer.cs" />
+    <Compile Remove="Migrations\20201216074614_Update_Default_Admin.cs" />
+    <Compile Remove="Migrations\20201216074614_Update_Default_Admin.Designer.cs" />
+    <Compile Remove="Migrations\20201216083557_Update_Default_Admin_Live.cs" />
+    <Compile Remove="Migrations\20201216083557_Update_Default_Admin_Live.Designer.cs" />
+    <Compile Remove="Migrations\20210530032317_Update_db_1.cs" />
+    <Compile Remove="Migrations\20210530032317_Update_db_1.Designer.cs" />
+    <Compile Remove="Migrations\20210530032655_Update_db_1.cs" />
+    <Compile Remove="Migrations\20210530032655_Update_db_1.Designer.cs" />
+    <Compile Remove="Migrations\20210627131350_Update_db_5.cs" />
+    <Compile Remove="Migrations\20210627131350_Update_db_5.Designer.cs" />
+    <Compile Remove="Models\Account\ApplicationUserRoles.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="3.1.8" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.21" />
+    <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Core\Interface\" />
+  </ItemGroup>
+
+</Project>

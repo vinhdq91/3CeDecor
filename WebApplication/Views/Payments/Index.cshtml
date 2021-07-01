@@ -1,0 +1,232 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using DAL.Common;
+@using DAL.Dtos;
+@model List<DAL.Models.Application.CartItemDto>
+@{
+    Layout = "_Layout";
+    decimal totalPrice = 0;
+    List<ProvinceDto> listProvinces = ViewBag.ListProvinces;
+    decimal shipfee = 0;
+}
+
+@section Styles{
+    <link href="~/lib/chosen_v1.8.7/chosen.min.css" rel="stylesheet" />
+    <link href="~/css/payment.css" rel="stylesheet" />
+}
+
+<div class="cart-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="car-header-title">
+                    <h2>Thanh Toán</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area start -->
+<div class="breadcrumb-area product-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb">
+                    <ul>
+                        <li><a href="/">Trang chủ <i class="fa fa-angle-right"></i></a></li>
+                        <li>Thanh toán</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area end -->
+<!-- checkout-area start -->
+<div class="checkout-area">
+    <div class="container">
+        <div class="row">
+            <form method="post" asp-controller="Payments" asp-action="GetOrderInfo">
+                <div class="col-lg-6 col-md-6">
+                    <div class="checkbox-form">
+                        <h3>Chi tiết hóa đơn</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>Họ tên <span class="required">*</span></label>
+                                    <input type="text" placeholder="" name="Customer.Name" required/>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label>Địa chỉ <span class="required">*</span></label>
+                                    <input type="text" placeholder="Nhập địa chỉ nhận hàng.." name="Customer.Address" required/>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label>Tỉnh/Thành phố <span class="required">*</span></label>
+                                    <select class="chosen-select" id="cboProvince" placeholder="Chọn thành phố.." name="Customer.ProvinceCode" onchange="selectAction.GenerateDistrict(this.value)" required>
+                                        <option value="0"> Chọn tỉnh/thành phố..</option>
+                                        @foreach (ProvinceDto item in listProvinces)
+                                        {
+                                            <option value="@item.ProvinceCode" data-rel="@item.Name">@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label>Quận/Huyện <span class="required">*</span></label>
+                                    <select class="chosen-select" id="cboDistrict" placeholder="Chọn quận.." name="Customer.DistrictCode" onchange="selectAction.GenerateWard(this.value)" required>
+                                        <option value="0">Chọn quận..</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label>Phường/Xã</label>
+                                    <select class="chosen-select" id="cboWard" placeholder="Chọn phường.." name="Customer.WardCode" required>
+                                        <option value="0">Chọn phường..</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>Email <span class="required">*</span></label>
+                                    <input type="email" placeholder="Nhập địa chỉ email.." name="Customer.Email" required/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>Phone <span class="required">*</span></label>
+                                    <input type="text" placeholder="Nhập số điện thoại.." name="Customer.PhoneNumber" required/>
+                                </div>
+                            </div>
+                            <div class="col-md-12 order-notes">
+                                <div class="checkout-form-list">
+                                    <label>Mô tả/ Lưu ý</label>
+                                    <textarea id="checkout-mess" name="Customer.Comments" cols="30" rows="10" placeholder="Lưu ý của bạn về đơn hàng cho shipper."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="your-order">
+                        <h3>Your order</h3>
+                        <div class="your-order-table table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="product-name">Product</th>
+                                        <th class="product-total">@Model.Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        totalPrice += ((item.Product.Price - (item.Product.Price * (decimal)item.Product.Discount) / 100) * item.Quantity);
+                                        <tr class="cart_item">
+                                            <td class="product-name">
+                                                @item.Product.Name<strong class="product-quantity"> × @item.Quantity</strong>
+                                            </td>
+                                            <td class="product-total product-content">
+                                                @if (item.Product.Discount > 0)
+                                                { 
+                                                    <span class="old-price">@Common.FomatPrice(item.Product.Price * item.Quantity)</span><br />
+                                                }
+                                                <span class="pro-price">@Common.FomatPrice((item.Product.Price - (item.Product.Price * (decimal)item.Product.Discount) / 100) * item.Quantity)</span><br />
+                                            </td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr class="coupon">
+                                        <th>Nhập mã giảm giá (Nếu có)</th>
+                                        <td>
+                                            <div class="coupon">
+                                                <input name="Customer.DiscountCode" id="inputDisCode" style="width: 100px" type="text" placeholder="Mã giảm giá.." />
+                                                <input type="button" onclick="discountCode.checkDiscountCode()" value="Xác nhận" />
+                                                <div class="d-none" id="discount-check"><i style="color:#17d017;font-size:20px" class="fa fa-check-circle"></i></div>
+                                            </div>
+                                            <div class="text-danger d-none" id="discount-mess"></div>
+                                        </td>
+                                    </tr>
+                                    <tr class="shipping">
+                                        <th>PHÍ SHIP HÀNG</th>
+                                        <td>
+                                            <ul>
+                                                @if (Model.Count > 0)
+                                                {
+                                                    shipfee = 30000;
+                                                    <li>
+                                                        <label>
+                                                            <span class="amount">@Common.FomatPrice(shipfee) VND</span>
+                                                        </label>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    shipfee = 0;
+                                                    <li>
+                                                        <label>
+                                                            <span class="amount">@Common.FomatPrice(shipfee) VND</span>
+                                                        </label>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr class="order-total">
+                                        <th>Tổng đơn hàng</th>
+                                        <td>
+                                            <strong><span class="amount" id="totalPrice">@Common.FomatPrice(totalPrice + shipfee)</span></strong>
+                                            <input type="hidden" id="originPrice" value="@Common.FomatPrice(totalPrice)"/>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="payment-method">
+                            <div class="payment-accordion">
+                                <input type="radio" id="cod-method" name="PaymentMethod" value="COD">
+                                <label for="cod-method">Thanh toán khi nhận hàng (COD)</label><br />
+
+                                <input type="radio" id="nl-method" name="PaymentMethod" value="NL" disabled>
+                                <label for="nl-method">Thanh toán ví Ngân Lượng</label>
+                                <div class="payment-content dis-none" id="nganluongcontent">
+                                    <p>
+                                        Thanh toán trực tuyến AN TOÀN và ĐƯỢC BẢO VỆ, sử dụng thẻ ngân hàng trong và ngoài nước hoặc nhiều hình thức tiện lợi khác.
+                                        Được bảo hộ &amp; cấp phép bởi NGÂN HÀNG NHÀ NƯỚC, ví điện tử duy nhất được cộng đồng ƯA THÍCH NHẤT 2 năm liên tiếp, Bộ Thông tin Truyền thông trao giải thưởng Sao Khuê
+                                        <br>Giao dịch. Đăng ký ví NgânLượng.vn miễn phí <a class="text-danger" href="https://www.nganluong.vn/?portal=nganluong&amp;page=user_register" target="_blank">tại đây</a>
+                                    </p>
+                                </div>
+
+                                <input type="radio" id="bank-method" name="PaymentMethod" value="ATM_ONLINE" disabled>
+                                <label for="bank-method">Thanh toán qua ngân hàng</label>
+                                <div class="payment-content dis-none" id="nganhangcontent">
+                                    <p>
+                                        <span style="color:#ff5a00;font-weight:bold;text-decoration:underline;">Lưu ý</span>
+                                        Bạn cần đăng ký Internet-Banking hoặc dịch vụ thanh toán trực tuyến tại ngân hàng trước khi thực hiện.
+                                    </p>
+                                    <partial name="_ListBank.cshtml">
+                                </div>
+                            </div>
+                            <div class="order-button-payment">
+                                <input type="submit" value="Place order" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- checkout-area end -->
+
+@section Scripts {
+    <script src="~/lib/chosen_v1.8.7/chosen.jquery.min.js"></script>
+    <script src="~/js/payment.js"></script>
+    <script src="~/lib/jquery-format-currency/jquery.formatCurrency-1.4.0.js"></script>
+}

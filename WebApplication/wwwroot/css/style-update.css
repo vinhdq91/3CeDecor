@@ -1,0 +1,17 @@
+.top-category ul li {
+    width: 40%;
+}
+
+.top-category ul li select {
+    color: #565656;
+    display: block;
+    font-weight: 700;
+    padding: 9px 35px 9px 20px;
+    position: relative;
+    width: 100%;
+    border: none;
+}
+
+.post-thumbnail {
+    text-align: center;
+}

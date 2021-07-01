@@ -1,0 +1,296 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering;
+@using DAL.Core.Enums;
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-link" target="_blank">
+        <img src="~/public/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+             style="opacity: .8">
+        <span class="brand-text font-weight-light">3CE Decor</span>
+    </a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+    with font-awesome or any other icon font library -->
+
+                <li class="nav-item">
+                    <a id="dashboard" href="/admin" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Trang Quản Lý
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a id="contact" href="#" class="nav-link">
+                        <i class="nav-icon fas fa-id-card-alt"></i>
+                        <p>
+                            Liên Hệ
+                            <i class="fas fa-angle-left right"></i>
+
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/contact" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tất Cả Liên Hệ</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a id="category" href="#" class="nav-link">
+                        <i class="nav-icon fas fa-chart-pie"></i>
+                        <p>
+                            Loại Sản Phẩm
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/ProductCategoryAdmin/ProductCategoryList" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tất Cả Loại Sản phẩm</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/ProductCategoryAdmin/Create" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm Loại Sản Phẩm</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a id="product" href="/admin" class="nav-link">
+                        <i class="nav-icon fas fa-boxes"></i>
+                        <p>
+                            Sản phẩm
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh Sách Sản phẩm</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/productadmin/create" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm Sản Phẩm</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a id="topic" href="" class="nav-link">
+                        <i class="nav-icon fas fa-boxes"></i>
+                        <p>
+                            Quản Lý Topic
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("TopicList", "TopicAdmin", new { topicId = (int)ProductTypeEnum.Featured })" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sản phẩm nổi bật</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("TopicList", "TopicAdmin", new { topicId = (int)ProductTypeEnum.BestSelling })" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sản phẩm bán chạy</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("TopicList", "TopicAdmin", new { topicId = (int)ProductTypeEnum.TopRate })" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sản phẩm được bình chọn</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("TopicList", "TopicAdmin", new { topicId = (int)ProductTypeEnum.TopNew })" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sản phẩm mới nổi bật</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a id="post" href="/admin/articleblogadmin/articlebloglist" class="nav-link">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Bài Viết
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/articleblogadmin/articlebloglist" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh Sách Bài Viết</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/articleblogadmin/create" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm Bài Viết</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a id="order" href="/admin/orderadmin/orderlist" class="nav-link">
+                        <i class="nav-icon fas fa-file-signature"></i>
+                        <p>
+                            Đơn Hàng
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/orderadmin/orderlist" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh Sách Đơn Hàng</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a id="strategy" href="/admin/strategyadmin/strategylist" class="nav-link">
+                        <i class="nav-icon fas fa-file-signature"></i>
+                        <p>
+                            Chiến Dịch
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/strategyadmin/strategylist" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh Sách Chiến Dịch</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/strategyadmin/createstrategy" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm Chiến Dịch</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a id="gallery" href="/admin/galleryadmin/gallerylist" class="nav-link">
+                        <i class="nav-icon fas fa-images"></i>
+                        <p>
+                            Thư Viện Ảnh
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/galleryadmin/gallerylist" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh Sách Ảnh</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/galleryadmin/creategallery" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm Ảnh</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a id="discountCode" href="/admin/discountcodeadmin/discountcodelist" class="nav-link">
+                        <i class="nav-icon fas fa-file-signature"></i>
+                        <p>
+                            Mã Khuyến Mại
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/discountcodeadmin/discountcodelist" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh Sách Mã</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/discountcodeadmin/creatediscountcode" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm Mã</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a id="user" href="/admin/useradmin/adminlist" class="nav-link">
+
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            User
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/useradmin/adminlist" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Quản trị viên</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/useradmin/customerlist" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Khách hàng</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/useradmin/createuser" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm User</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a id="menu" href="#" class="nav-link">
+                        <i class="nav-icon fas fa-bars"></i>
+                        <p>
+                            Menu
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/menu" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tất Cả Menu</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/menu/trash" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thùng rác</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                    @*@Html.RenderAction("CallSessionForLayout", "Dashboard");*@
+
+</nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

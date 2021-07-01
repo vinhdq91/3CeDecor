@@ -1,0 +1,42 @@
+﻿
+@model IEnumerable<DAL.Dtos.ArticleBlogDto>
+<!-- recent-post-area start -->
+<div class="recent-post-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h3>BÀI VIẾT GẦN ĐÂY</h3>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="recent-post-curosel">
+                @foreach (var item in Model)
+                {
+                    <!-- recent-post start -->
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="recent-post">
+                            <div class="post-thumb">
+                                @if (item.ImageIds.ToList() != null && item.ImageIds.ToList().Count > 0)
+                                {
+                                    <a href="@item.UrlPath">
+                                        <img style="width:320px;height: 191px"
+                                             src=@("~/Resource/AllImages/" + item.ImageIds.ToList()[0].ImageName) asp-append-version="true" alt="@item." />
+                                    </a>
+                                }
+                            </div>
+                            <div class="post-info">
+                                <span class="recent-post-date">@item.CreatedDate</span>
+                                <h3><a href="@item.UrlPath">@item.Title</a></h3>
+                                <p>@item.Sapo</p>
+                                <a class="read-more" href="@item.UrlPath">read more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- recent-post start -->
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- recent-post-area end -->

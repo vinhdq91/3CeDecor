@@ -1,0 +1,35 @@
+﻿@model List<DAL.Models.Application.CartItemDto>
+@using DAL.Common;
+
+<div class="cart-total">
+    <ul>
+        <li>
+            <a title="Đến giỏ hàng" href="/shopping-cart"><span class="cart-icon"><i class="fa fa-shopping-cart"></i></span> <span class="cart-no">@Model.Count</span></a>
+            @if (Model != null && Model.Count > 0)
+            {
+                <div class="mini-cart-content">
+                    @foreach (var item in Model)
+                    {
+                        <div class="cart-img-details">
+                            <div class="cart-img-photo">
+                                <a href="#"><img src=@(item.Product.UrlPath + "/Resource/AllImages/" + item.Product.ImageIds.ToList()[0].ImageName) alt="" /></a>
+                                <span class="quantity">@item.Quantity</span>
+                            </div>
+                            <div class="cart-img-contaent">
+                                <a href="#"><h4>@item.Product.Name</h4></a>
+                                <span>@Common.FomatPrice(item.Product.Price - (item.Product.Price * (decimal)item.Product.Discount) / 100)</span>
+                            </div>
+                            <div class="pro-del" style="cursor:pointer">
+                                <a onclick="shoppingCart.DeleteCartItem(@item.Product.Id)"><i class="fa fa-times-circle"></i></a>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    }
+                    <p class="total">Tổng giá trị: <span class="amount">@Common.FomatPrice(ViewBag.Total)</span></p>
+                    <div class="clear"></div>
+                    <p class="cart-button-top"><a href="/check-out">Thanh toán</a></p>
+                </div>
+            }
+        </li>
+    </ul>
+</div>

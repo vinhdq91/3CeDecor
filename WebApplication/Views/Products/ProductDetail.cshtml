@@ -1,0 +1,168 @@
+﻿@using DAL.Common
+@model DAL.Dtos.ProductDto
+@{
+    Layout = "_Layout";
+}
+
+<!-- product-main-area start -->
+<div class="product-main-area">
+    <div class="container">
+        <div class="row">
+            <!-- product-page-photo start -->
+            <div class="col-lg-7 col-md-7 col-sm-12">
+                <div class="product-page-photo">
+                    <div class="product-page-2-tab">
+                        <div>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                @for (int i = 0; i < Model.ImageIds.Count; i++)
+                                {
+                                    if (i == 0)
+                                    {
+                                        <li role="presentation" class="active">
+                                            <a href="#img-@(i+1)" aria-controls="@(i+1)" role="tab" data-toggle="tab">
+                                                <img src=@(Model.UrlPath + "/Resource/AllImages/" + Model.ImageIds.ToList()[i].ImageName) alt="Detail_Image_@i" />
+                                            </a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li role="presentation">
+                                            <a href="#img-@(i+1)" aria-controls="@(i+1)" role="tab" data-toggle="tab">
+                                                <img src=@(Model.UrlPath + "/Resource/AllImages/" + Model.ImageIds.ToList()[i].ImageName) alt="Detail_Image_@i" />
+                                            </a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                @for (int i = 0; i < Model.ImageIds.Count; i++)
+                                {
+                                    if (i == 0)
+                                    {
+                                        <div role="tabpanel" class="tab-pane active" id="img-@(i+1)">
+                                            <img src=@(Model.UrlPath + "/Resource/AllImages/" + Model.ImageIds[i].ImageName) alt="Detail_Image_@i" />
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div role="tabpanel" class="tab-pane" id="img-@(i+1)">
+                                            <img src=@(Model.UrlPath + "/Resource/AllImages/" + Model.ImageIds[i].ImageName) alt="Detail_Image_@i" />
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- product-page-photo end -->
+            <div class="col-lg-5 col-md-5 col-sm-12">
+                <div class="product-page-content">
+                    <div class="pro-page-title">
+                        <h1>@Model.Name</h1>
+                        @*<div class="product-nav">
+                            <a href="#"><i class="fa fa-angle-left"></i></a>
+                            <a href="#"><i class="fa fa-angle-right"></i></a>
+                        </div>*@
+                    </div>
+                    <div class="product-page-rating">
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                    </div>
+                    <div class="stock-status">
+                        <p>In stock</p>
+                    </div>
+                    <div class="product-page-price">
+                        @if (Model.Discount > 0)
+                        {
+                            <span class="old-price">@Common.FomatPrice(Model.Price)</span>
+                        }
+                        <span class="pro-price">@Common.FomatPrice(((Model.Price - (Model.Price * (decimal)Model.Discount) / 100)))</span>
+                    </div>
+                    <div class="product-total-cart">
+                        <input id="quantityChange" type="number" value="1" />
+                        <a class="btn-cart" onclick="shoppingCart.AddToCart(@Model.Id)">Giỏ Hàng</a>
+                    </div>
+                    <div class="product-wishlist">
+                        <a href="#"><i class="fa fa-heart-o"></i></a>
+                        <a href="#"><i class="fa fa-toggle-off"></i></a>
+                    </div>
+                    <div class="product-meta">
+                        <span class="posted-in">
+                            Loại sản phẩm:
+                            @foreach(var catInfoItem in Model.ProductCategoryInfos)
+                            {
+                                <a href="@catInfoItem.CategoryUrl"> @catInfoItem.CategoryName</a>
+                            }
+                        </span>
+                        <span class="size">
+                            Kích thước:
+                            <a href="#">@Model.SizeName</a>,
+                        </span>
+                        @*<span class="tag-in">
+                            Tags:
+                            <a href="#"> electronic</a>,
+                            <a href="#"> laptop</a>.
+                        </span>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="product-share-icon">
+                    <a class="facebook fb-btn"><i class="fa fa-facebook"></i></a>
+                    @*<div class="fb-share-button"
+                         data-href=@(ViewBag.ProductDetailUrl)
+                         data-layout="button_count">
+                    </div>*@
+                    @*<a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
+                    <a class="pinterest" href="#"><i class="fa fa-pinterest"></i></a>
+                    <a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a>
+                    <a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>*@
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="product-tab">
+                    <div>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+                            <li role="presentation"><a href="#information" aria-controls="information" role="tab" data-toggle="tab">Additional Information</a></li>
+                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews (1)</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="home">
+                                <div class="product-page-tab-content">
+                                    <p>@Html.Raw(Model.Description)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- product-main-area end -->
+@await Component.InvokeAsync("_RelatedProducts", new { productId = Model.Id })
+@section Scripts {
+    <script>
+        $(".facebook.fb-btn").click(function () {
+            FB.ui({
+                method: 'share',
+                href: '@ViewBag.ProductDetailUrl',
+            }, function (response) { });
+        })
+    </script>
+}

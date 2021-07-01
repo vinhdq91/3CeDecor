@@ -1,0 +1,188 @@
+[
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/payment.min.js",
+    "inputFiles": [
+      "wwwroot/js/payment.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/admin.min.js",
+    "inputFiles": [
+      "wwwroot/js/admin.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/main.min.js",
+    "inputFiles": [
+      "wwwroot/lib/main.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/jquery-format-currency/jquery.formatCurrency-1.4.0.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery-format-currency/jquery.formatCurrency-1.4.0.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/login/login.min.css",
+    "inputFiles": [
+      "wwwroot/css/login/login.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/login/util.min.css",
+    "inputFiles": [
+      "wwwroot/css/login/util.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/login/util.min.css",
+    "inputFiles": [
+      "wwwroot/css/login/util.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/login/util.min.css",
+    "inputFiles": [
+      "wwwroot/css/login/util.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/admin.min.css",
+    "inputFiles": [
+      "wwwroot/css/admin.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/animate.min.css",
+    "inputFiles": [
+      "wwwroot/css/animate.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/home-2-color.min.css",
+    "inputFiles": [
+      "wwwroot/css/home-2-color.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/home-3-color.min.css",
+    "inputFiles": [
+      "wwwroot/css/home-3-color.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/home-4-color.min.css",
+    "inputFiles": [
+      "wwwroot/css/home-4-color.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/home-5-color.min.css",
+    "inputFiles": [
+      "wwwroot/css/home-5-color.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/home-6-color.min.css",
+    "inputFiles": [
+      "wwwroot/css/home-6-color.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/jquery-ui.min.css",
+    "inputFiles": [
+      "wwwroot/css/jquery-ui.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/main.min.css",
+    "inputFiles": [
+      "wwwroot/css/main.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/normalize.min.css",
+    "inputFiles": [
+      "wwwroot/css/normalize.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/owl.carousel.min.css",
+    "inputFiles": [
+      "wwwroot/css/owl.carousel.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/owl.theme.min.css",
+    "inputFiles": [
+      "wwwroot/css/owl.theme.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/owl.transitions.min.css",
+    "inputFiles": [
+      "wwwroot/css/owl.transitions.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/payment.min.css",
+    "inputFiles": [
+      "wwwroot/css/payment.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/responsive.min.css",
+    "inputFiles": [
+      "wwwroot/css/responsive.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/slicknav.min.css",
+    "inputFiles": [
+      "wwwroot/css/slicknav.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/style.min.css",
+    "inputFiles": [
+      "wwwroot/css/style.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/style-update.min.css",
+    "inputFiles": [
+      "wwwroot/css/style-update.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/rs-plugin/css/settings.min.css",
+    "inputFiles": [
+      "wwwroot/lib/rs-plugin/css/settings.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/rs-plugin/rs.home.min.js",
+    "inputFiles": [
+      "wwwroot/lib/rs-plugin/rs.home.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/jquery/price-slider.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/price-slider.js"
+    ]
+  }
+]

@@ -1,0 +1,11 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_Layout";
+    string StatusMessage = (string)TempData["StatusMessage"];
+    ViewData["Title"] = "Xác thực email";
+
+}
+
+<h1>@ViewData["Title"]</h1>
+<p>@StatusMessage</p>

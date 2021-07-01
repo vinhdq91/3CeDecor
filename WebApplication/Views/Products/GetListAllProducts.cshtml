@@ -1,0 +1,11 @@
+﻿@model IEnumerable<DAL.Dtos.ProductDto>
+@{ 
+    Layout = "_Layout";
+}
+
+<ul>
+    @foreach(var item in Model)
+    {
+        <li>@item.Name</li>
+    }
+</ul>

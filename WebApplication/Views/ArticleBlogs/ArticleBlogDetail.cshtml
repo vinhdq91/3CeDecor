@@ -1,0 +1,96 @@
+﻿@model DAL.Dtos.ArticleBlogDto
+
+@{
+    Layout = "_Layout";
+}
+<!-- blog-header-area start -->
+<div class="blog-header-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="blog-header-title">
+                    <h1>Bài viết</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- blog-header-area end -->
+<!-- breadcrumb-area start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="/">Trang chủ <i class="fa fa-angle-right"></i></a></li>
+                <li>@Model.Title</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area end -->
+<!-- blog-main-area start -->
+<div class="blog-main-area blog-post-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <!-- blog start -->
+                <article class="blog-full">
+                    <!-- post-thumbnail start -->
+                    <div class="post-thumbnail">
+                        <a title="@Model.Title" href="@Model.UrlPath"><img src=@("/Resource/AllImages/" + Model.ImageIds.ToList()[0].ImageName) alt="@Model.Title" /></a>
+                    </div>
+                    <!-- post-thumbnail end -->
+                    <!-- post-wrapper start -->
+                    <div class="post-wrapper">
+                        <div class="post-date">
+                            <span class="day">@Model.CreatedDate</span>
+                            @*<span class="month">Mar</span>*@
+                        </div>
+                        <div class="post-info-blog">
+                            <h2 class="post-tile">
+                                <a title="@Model.Title" href="@Model.UrlPath">@Model.Title</a>
+                            </h2>
+                            <div class="entry-meta-small">
+                                Posted by
+                                <span class="author-info"><a title="@Model.Title" href="@Model.UrlPath">@Model.Authors</a></span>
+                            </div>
+                            <div class="entry-summary">
+                                <h5>@Model.Sapo</h5>
+                                <br />
+                                <p>@Html.Raw(Model.Content)</p>
+                            </div>
+                            <div class="social-sharaing">
+                                <h3>Chia sẻ bài viết này</h3>
+                                <div class="sharing-icon">
+                                    <a class="facebook fb-btn"><i class="fa fa-facebook"></i></a>
+                                    @*<a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin"></i></a>*@
+                                </div>
+                            </div>
+                            <div class="autor-info-details">
+                                <div class="author-description">
+                                    <h2>Tác giả: <span>@Model.Authors</span></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- post-wrapper end -->
+                </article>
+                <!-- blog end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- blog-main-area end -->
+@section Scripts {
+    <script>
+        $(".facebook.fb-btn").click(function () {
+            FB.ui({
+                method: 'share',
+                href: '@ViewBag.BlogDetailUrl',
+            }, function (response) { });
+        })
+    </script>
+}

@@ -1,0 +1,61 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using DAL.Models.Account
+@model List<UserRoleModel>
+
+@{
+    ViewBag.Title = "Add Users To Role";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+    List<ApplicationUser> listUsers = (List<ApplicationUser>)ViewBag.ListUsers;
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row m-0 bg-light">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Thêm User Vào Role</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin/RoleAdmin/EditRole">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/Admin/RoleAdmin/EditRole">Cập Nhật Quyền</a></li>
+                        <li class="breadcrumb-item active">Thêm User Vào Role</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <section class="pt-2">
+        <div class="container bg-white p-4 card">
+            <partial name="~/Areas/Admin/Views/Shared/_MessgeAlert.cshtml">
+            <form method="post">
+                <div class="card">
+                    <div class="card-body">
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <div class="form-check m-1">
+                                <input type="hidden" asp-for="@Model[i].UserId" />
+                                <input type="hidden" asp-for="@Model[i].UserName" />
+                                <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                                <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                                    @Model[i].UserName
+                                </label>
+                            </div>
+                        }
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Thêm" class="btn btn-primary"
+                                style="width:auto" />
+                        <a asp-action="EditRole" asp-route-roleId="@ViewBag.RoleId"
+                            class="btn btn-primary" style="width:auto">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>

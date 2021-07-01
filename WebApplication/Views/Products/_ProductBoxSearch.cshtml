@@ -1,0 +1,25 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model DAL.Dtos.ProductSearch;
+@*<form method="post" asp-controller="Products" asp-action="ProductBoxSearch">*@
+<div class="cat-search">
+    <div class="header-search">
+        <div class="top-category">
+            <ul>
+                <li>
+                    <select asp-for="@Model.CategoryId" id="categoryId" name="CategoryId">
+                        <option value="0" data-url="tat-ca">Tất cả</option>
+                        @foreach (var item in Model.ProductCategoryDtos)
+                        {
+                            <option value="@item.Id" data-url="@item.UrlName">@item.Name</option>
+                        }
+                    </select>
+                </li>
+                <li class="search-top">
+                    <input type="text" value="@Model.TextSearch" id="textSearch" name="TextSearch" placeholder="Tìm kiếm sản phẩm..." />
+                    <button onclick="boxSearchInHeader.PostBoxSearchProduct()"><i class="fa fa-search"></i></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+@*</form>*@

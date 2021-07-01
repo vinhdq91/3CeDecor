@@ -1,0 +1,153 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    int categoryId = ViewBag.CategoryId != null ? ViewBag.CategoryId : 0;
+    string textSearch = ViewBag.TextSearch != null ? ViewBag.TextSearch : "";
+}
+<!-- header start -->
+<header>
+    <!-- header-top-area start -->
+    <div class="header-top-area">
+        <div class="container">
+            <div class="row">
+                <!-- header-social-icon start -->
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="header-social-icon">
+                        <a href="https://www.facebook.com/3CEDECOR" rel="nofollow" target="_blank" title="Facebook"><i class="fa fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/bacedecor/" rel="nofollow" target="_blank" title="instagram"><i class="fa fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/channel/UCqxbA-toL2i4gLscTHp2Icw" rel="nofollow" target="_blank" title="youtube channel"><i class="fa fa-youtube"></i></a>
+                    </div>
+                    <div class="email-content">
+                        <a href="mailto: decor3ce@gmail.com">decor3ce@gmail.com</a>
+                    </div>
+                </div>
+                <!-- header-social-icon end -->
+                <!-- header-top-menu start -->
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="header-top-menu">
+                        <ul>
+                            <li>
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <a id="manage" class="nav-link text-dark" asp-page="/Account/Manage/Index" title="Manage">
+                                        <img style="height:20px" src="~/img/user.png" />
+                                        <span>Xin chào @UserManager.GetUserName(User)</span>
+                                    </a>
+                                }
+                                else { 
+                                    <a href="/login">Login</a>
+                                }
+                                <partial name="~/Pages/PartialViews/_LoginPartial.cshtml">
+                            </li>
+                            <li><a href="/shopping-cart">Giỏ Hàng</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- header-top-menu end -->
+            </div>
+        </div>
+    </div>
+    <!-- header-top-area end -->
+    <!-- header-mid-area start -->
+    <div class="header-mid-area">
+        <div class="container">
+            <div class="row">
+                <!-- logo start -->
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                    <div class="logo">
+                        <a href="/"><img style="width:110px" src="~/img/logo/bacelogo.jpg" alt="" /></a>
+                    </div>
+                </div>
+                <!-- logo end -->
+                <!-- cat-search start -->
+                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                    @Html.RenderAction("ProductBoxSearch", "Products", new { categoryId = categoryId, textSearch = textSearch })
+                </div>
+                <!-- cat-search end -->
+                <!-- cart-total start -->
+                <div class="col-lg-4 col-md-4 col-sm-2 col-xs-12">
+                    @Html.RenderAction("CartHeader", "Homes")
+                </div>
+                <!-- cart-total end -->
+            </div>
+        </div>
+    </div>
+    <!-- header-mid-area end -->
+    <!-- mainmenu-area start -->
+    <div class="mainmenu-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="mainmenu">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="/">Trang chủ</a>
+                                </li>
+                                <li>
+                                    <a href="/product-for-sale">Sản phẩm</a>
+                                </li>
+                                <li>
+                                    <a href="/article-blog-list">Bài viết</a>
+                                </li>
+                                <li>
+                                    <a href="#">Các trang khác <span><i class="fa fa-caret-down"></i></span></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="/contact">Liên hệ</a></li>
+                                        <li><a href="/about-us">Về chúng tôi</a></li>
+                                        <li><a href="/shopping-cart">Giỏ hàng</a></li>
+                                        <li><a href="/payment">Thanh toán</a></li>
+                                        <li><a href="/product-for-sale">Sản phẩm</a></li>
+                                        <li><a href="/article-blog-list">Blog</a></li>
+                                        <li><a href="/404-error">Error 404</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/contact">LIÊN HỆ</a></li>
+                                <li><a href="/hiring">TUYỂN DỤNG</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- mobile menu start -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mobile-menu">
+                        <nav>
+                            <ul id="mobile-menu">
+                                <li>
+                                    <a href="/">Trang chủ</a>
+                                </li>
+                                <li>
+                                    <a href="/product-for-sale">Sản phẩm</a>
+                                </li>
+                                <li>
+                                    <a href="/article-blog-list">Bài viết</a>
+                                </li>
+                                <li>
+                                    <a href="#">Các trang khác</a>
+                                    <ul>
+                                        <li><a href="/contact">Liên hệ</a></li>
+                                        <li><a href="/about-us">Về chúng tôi</a></li>
+                                        <li><a href="/shopping-cart">Giỏ hàng</a></li>
+                                        <li><a href="/payment">Thanh toán</a></li>
+                                        <li><a href="/product-for-sale">Sản phẩm</a></li>
+                                        <li><a href="/article-blog-list">Bài viết</a></li>
+                                        <li><a href="/404-error">Error 404</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/contact">LIÊN HỆ</a></li>
+                                <li><a href="/hiring">TUYỂN DỤNG</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- mobile menu end -->
+        </div>
+    </div>
+    <!-- mainmenu-area end -->
+</header>
+<!-- header end --> 

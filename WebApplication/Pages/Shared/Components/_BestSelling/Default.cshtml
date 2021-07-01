@@ -1,0 +1,63 @@
+﻿@using DAL.Common;
+@model IEnumerable<DAL.Dtos.ProductDto>
+@{
+    string className = "";
+}
+<!-- category-area start -->
+<div class="sale-curosel1">
+    <div class="col-lg-4 col-md-4">
+        <div class="sale-title">
+            <h3>BÁN CHẠY NHẤT</h3>
+        </div>
+        <div class="sale-curosel">
+            @foreach (DAL.Dtos.ProductDto item in Model)
+            {
+                <!-- product start -->
+                <div class="single-features">
+                    @if (item.Discount > 0)
+                    {
+                        <span class="sale-text">Sale</span>
+                    }
+                    <div class="product-img">
+                        <a href="@item.UrlPath">
+                            @for (int i = 0; i < item.ImageIds.Count; i++)
+                            {
+                                {
+                                    className = i == 0 ? "first-img" : "second-img";
+                                }
+                                <img class="lazyload @className" style="width:360px;height:473px"
+                                     src=@(ViewBag.PathBase + item.ImageIds.ToList()[i].ImageName) asp-append-version="true" alt="" />
+                            }
+                            @*<img class="first-img" src="img/product/3.jpg" alt="" />*@
+                        </a>
+                        <div class="action-buttons">
+                            <a class="add-to-cart" onclick="shoppingCart.AddToCart(@item.Id)"><i class="fa fa-shopping-cart"></i> <span>Giỏ Hàng</span></a>
+                            <a class="favourite" href="#"><i class="fa fa-heart-o"></i></a>
+                            <a class="compare" href="#"><i class="fa fa-toggle-off"></i></a>
+                        </div>
+                    </div>
+                    @*<div class="timer">
+                        <div data-countdown="2016/05/01"></div>
+                    </div>*@
+                    <div class="product-content">
+                        <div class="pro-rating">
+                            <a href="#"><i class="fa fa-star"></i></a>
+                            <a href="#"><i class="fa fa-star"></i></a>
+                            <a href="#"><i class="fa fa-star"></i></a>
+                            <a href="#"><i class="fa fa-star-o"></i></a>
+                        </div>
+                        <h5><a href="@item.UrlPath" class="f-size-16">@item.Name</a></h5>
+                        @if (item.Discount > 0)
+                        {
+                            <span class="old-price">@Common.FomatPrice(item.Price)</span>
+                        }
+                        <span class="pro-price">@Common.FomatPrice(((item.Price - (item.Price * (decimal)item.Discount) / 100)))</span>
+                    </div>
+                </div>
+                <!-- product end -->
+            }
+        </div>
+    </div>
+</div>
+            
+<!-- category-area end -->

@@ -1,0 +1,68 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model DAL.Models.Account.LoginModel;
+
+@{
+    Layout = "_Layout";
+}
+
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="~/css/login/login.css">
+    <link rel="stylesheet" type="text/css" href="~/css/login/util.css">
+}
+
+<div class="cart-main-area">
+    <div class="container">
+        <div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+                    <form class="login100-form validate-form flex-sb flex-w"
+                          method="post" asp-action="Login" asp-controller="ApplicationUsers">
+                        <span class="login100-form-title p-b-53">
+                            Đăng nhập
+                        </span>
+
+                        <a href="#" class="btn-face m-b-20">
+                            <i class="fa fa-facebook-official"></i>
+                            Facebook
+                        </a>
+
+                        <a href="#" class="btn-google m-b-20">
+                            <img src="~/img/icon-google.png" alt="GOOGLE" />
+                            Google
+                        </a>
+
+                        <label asp-for="Email" class="txt1"></label>
+                        <div class="form-group w-100 validate-input">
+                            <input asp-for="Email" class="form-control input100" type="text" name="Email">
+                            <span asp-validation-for="Email" class="text-validate text-danger focus-input100"></span>
+                        </div>
+
+                        <label asp-for="Password" class="txt1"></label>
+                        <div class="form-group w-100 validate-input">
+                            <input asp-for="Password" class="form-control input100" type="password" name="PassWord">
+                            <span asp-validation-for="Password" class="text-validate text-danger focus-input100"></span>
+                        </div>
+
+                        <div class="container-login100-form-btn m-t-17">
+                            <button type="submit" class="login100-form-btn">
+                                Đăng nhập
+                            </button>
+                        </div>
+
+                        <div class="w-full text-center p-t-55">
+                            <a asp-action="ForgetPassword" asp-controller="ApplicationUsers">
+                                <label asp-for="RememberMe" style="cursor:pointer">
+                                    @Html.DisplayNameFor(m => m.RememberMe)
+                                </label>
+                            </a>
+                            
+                            <a asp-action="Register" asp-controller="ApplicationUsers" class="txt2 bo1">
+                                Bạn đã là thành viên chưa ? Đăng kí tại đây.
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using DAL.Models.Account
+@model RoleModel
+
+@{
+    ViewBag.Title = "Create Role";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row m-0 bg-light">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Thêm Quyền</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin/roleadmin/rolelist">Home</a></li>
+                        <li class="breadcrumb-item active">Thêm Quyền</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <section class="pt-2">
+        <div class="container bg-white p-4 card">
+            <partial name="~/Areas/Admin/Views/Shared/_MessgeAlert.cshtml">
+            @using (Html.BeginForm("CreateRole", "RoleAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class=" row ">
+                    <div class="col-md-4">  </div>
+                    <div class="col-md-4"> <h3 class="text-center font-weight-bold text-success "> THÊM QUYỀN</h3> </div>
+                    <div class="col-md-4 ">
+                        <div class="float-right">
+                            <button type="submit" class="btn btn-sm bg-success text-white"><i class="far fa-save"></i> Lưu</button>
+                            <a href="~/admin/roleadmin/rolelist" class="btn btn-sm bg-danger text-white"><i class="far fa-window-close"></i> Hủy</a>
+                        </div>
+                    </div>
+                </div>
+                <div class=" row ">
+                    <div class="col-md-8">
+                        <label asp-for="RoleName" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                            <input asp-for="RoleName" class="form-control" placeholder="Name">
+                            <span asp-validation-for="RoleName" class="text-danger"></span>
+                            @if (!string.IsNullOrEmpty((string)ViewBag.ErrorMessage))
+                            {
+                                <span asp-validation-for="RoleName" class="text-danger">@ViewBag.ErrorMessage</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class=" row ">
+                    <div class="col-md-8">
+                        <label asp-for="Description" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                            <textarea asp-for="Description" class="form-control" placeholder="Mô tả.."></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</div>

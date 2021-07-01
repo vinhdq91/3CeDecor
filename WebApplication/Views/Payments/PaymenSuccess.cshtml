@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "_Layout";
+}
+
+<div class="section pt-4">
+    <!-- container -->
+    <div class="container bg-white">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="order-summary clearfix">
+                    <div class="section-title">
+                        <p class="text-success">Đặt hàng thành công! </p>
+                        <h3 class="title text-cam">Thông Tin Khách Hàng</h3>
+
+                    </div>
+
+                    <table class="shopping-cart-table table">
+
+                        <tbody>
+                            <tr>
+                                <td class=""><h5>Tên khách hàng: </h5></td>
+                                <td>@ViewBag.Name</td>
+                            </tr>
+                            <tr>
+                                <td class=""><h5>Mã đơn hàng</h5></td>
+                                <td>@ViewBag.OrderCode</td>
+                            </tr>
+                            <tr>
+                                <td class=""><h5>Địa chỉ</h5></td>
+                                <td>@ViewBag.Address</td>
+                            </tr>
+                            <tr>
+                                <td class=""><h5>Email</h5></td>
+                                <td>@ViewBag.Email</td>
+                            </tr>
+                            <tr>
+                                <td class=""><h5>Số điện thoại</h5></td>
+                                <td>@ViewBag.Phone</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+        <!-- /container -->
+
+        <div class="order-summary clearfix">
+            <div class="section-title">
+                <h3 class="title text-cam">Thông Tin Đơn Hàng</h3>
+            </div>
+            <table class="shopping-cart-table table">
+                <thead>
+                    <tr>
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th class="text-center">Giá sản phẩm</th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="text-center">Tổng</th>
+                        <th class="text-center">Hình ảnh</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ 
+                        float sum = 0;    
+                    }
+                    @foreach (var item in ViewBag.ListCart)
+                    {
+                        int sale = (int)item.Product.Discount;
+                        float price = (int)item.Product.Price - (int)item.Product.Price / 100 * (int)sale;
+                        float price1 = ((int)item.Product.Price - (int)item.Product.Price / 100 * (int)sale) * (item.Quantity);
+                        if (sale > 0)
+                        {
+                            sum += ((int)item.Product.Price - (int)item.Product.Price / 100 * (int)sale) * ((int)item.Quantity);
+                        }
+                        else
+                        {
+                            sum += (int)item.Product.Price * (int)item.Quantity;
+                        }
+                    <tr>
+                        <td>@item.Product.Id</td>
+                        <td class="details">@item.Product.Name</td>
+
+                        @if (sale > 0)
+                        {
+                            <th>
+                                <span class="text-danger"><Strike> @item.Product.Price.ToString("N0") VND</Strike></span><br />
+                                @price.ToString("N0") VND
+                            </th>
+                        }
+                        else
+                        {
+                            <th>@item.Product.Price.ToString("N0") VND</th>
+                        }
+
+                        <td class="price text-center">@item.Quantity</td>
+                        <td class="price text-center">@price1</td>
+                        @*<td class="thumb"><img style="width:50px" src=@("~/Resource/AllImages/" + item.Product.ImageIds.ToList()[0].ImageName) alt=""></td>*@
+                    </tr>
+                    }
+                    @{
+                        float sumAfterFee = sum + Convert.ToInt32(ViewBag.ShippingFee);
+                    }
+                </tbody>
+
+                <tfoot class="border-0">
+                    <tr>
+
+                        <th class="empty" colspan="3"></th>
+                        <th>Tạm tính</th>
+                        <th colspan="2" class="sub-total">@sum.ToString("N0") VND</th>
+                    </tr>
+                    <tr>
+                        <th class="empty" colspan="3"></th>
+                        <th>Phí vận chuyển</th>
+                        <td colspan="2">@ViewBag.ShippingFee.ToString("N0")</td>
+                    </tr>
+                    <tr>
+                        <th class="empty" colspan="3"></th>
+                        <th>Tổng tiền</th>
+                        <th colspan="2" class="total">@sumAfterFee.ToString("N0") VND</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div style="text-align:center">
+            <a class="btn btn-primary" href="@Url.Action("Homes", "Index")">Trở về trang chủ</a>
+        </div>
+    </div>
+</div>
+<style>
+    .shopping-cart-table > tbody > tr > .thumb > img {
+        width: 60px;
+    }
+    .section-title {
+        position: relative;
+        margin-bottom: 15px;
+        margin-top: 15px;
+        border-bottom: 1px solid #DADADA;
+    }
+
+        .section-title .title {
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        .section-title:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -1.5px;
+            height: 3px;
+            width: 60px;
+            background-color: #F8694A;
+        }
+</style>

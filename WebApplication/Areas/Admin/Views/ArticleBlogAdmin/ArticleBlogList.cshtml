@@ -1,0 +1,102 @@
+﻿@model IEnumerable<DAL.Dtos.ArticleBlogDto>
+
+@{
+    ViewBag.Title = "Article Blog";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    int index = 0;
+}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row m-0">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Quản Lý Bài Viết</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Quản Lý Sản Phẩm</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <section class="container-fluid ">
+        <div class=" bg-white card  ">
+            <div class="row justify-content-end">
+                <div class="col-md-3">
+                    <div class=" pt-1 ml-5">
+                        <a class="text-white btn-sm btn-success" href="~/admin/ArticleBlogAdmin/Create">Thêm bài mới<i class="fas fa-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9  w-100 ">
+                    <partial name="~/Areas/Admin/Views/Shared/_MessgeAlert.cshtml">
+                </div>
+                <div class="col-md-12 p-3">
+
+                    <table id="myTable1" class="table px-3 table-striped table-bordered dt-responsive nowrap">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th width="5%">Hình ảnh</th>
+                                <th>Title</th>
+                                <th>Tác giả</th>
+                                <th>Ngày Tạo</th>
+                                <th>Chức Năng</th>
+                                <th>ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                string title = item.Title;
+                                index += 1;
+                                <tr>
+                                    <td>@index</td>
+                                    <td><img class="lazyload" style="height: 50px" src=@("/Resource/AllImages/" + item.ImageIds.ToList()[0].ImageName) asp-append-version="true" alt="" /></td>
+                                    <td>
+
+                                        @if (title.Length > 50)
+                                        {
+                                            <a class="font-weight-bold card-link" href="@Url.Action("Detail", "ArticleBlogAdmin", new { articleBlogId = item.Id })">@title.Substring(0, 50) ...</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="font-weight-bold card-link" href="@Url.Action("Detail", "ArticleBlogAdmin", new { articleBlogId = item.Id })">@title </a>
+                                        }
+                                    </td>
+                                    <td width="15%">  @Html.DisplayFor(modelItem => item.Authors)</td>
+                                    <td style="font-size:14px;">@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                                    <td>
+                                        @if (item.Status == 1)
+                                        {
+                                            <a class="btn btn-sm btn-light text-success border a33" href="@Url.Action("ChangeStatus", "ArticleBlogAdmin", new { articleBlogId = item.Id })"> <i class="fas fa-toggle-on"></i> </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-sm btn-light text-danger border a33" href="@Url.Action("ChangeStatus", "ArticleBlogAdmin", new { articleBlogId = item.Id })"> <i class="fas fa-toggle-off"></i> </a>
+                                        }
+                                        <a class="btn btn-sm btn-light text-danger border" href="@Url.Action("Delete", "ArticleBlogAdmin", new { articleBlogId = item.Id })"> <i class="fas fa-trash-alt"></i></a>
+                                        <a class="btn btn-sm btn-light text-warning border" href="@Url.Action("Edit", "ArticleBlogAdmin", new { articleBlogId = item.Id })">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-cam">@Html.DisplayFor(modelItem => item.Id)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    $("#post").addClass("active");
+</script>

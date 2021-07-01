@@ -1,0 +1,45 @@
+﻿
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+
+@await Component.InvokeAsync("_BannerSlider")
+@await Component.InvokeAsync("_CommitRuleBox")
+@await Component.InvokeAsync("_BannerGallery")
+@await Component.InvokeAsync("_FeaturedProducts")
+@await Component.InvokeAsync("_PromotionBox")
+<div class="category-area">
+    <div class="container">
+        <div class="row">
+            @await Component.InvokeAsync("_BestSelling")
+            <div class="col-lg-8 col-md-8">
+                <div class="category-tab">
+                    <div>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#recent" aria-controls="recent" role="tab" data-toggle="tab">SẢN PHẨM MỚI</a></li>
+                            <li role="presentation"><a href="#topRate" aria-controls="topRate" role="tab" data-toggle="tab">TOP ĐƯỢC YÊU THÍCH</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="recent">
+                                @await Component.InvokeAsync("_NewArrival")
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="topRate">
+                                @await Component.InvokeAsync("_TopRate")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@await Component.InvokeAsync("_RecentPost")
+@await Component.InvokeAsync("_LogoTestimonial")
+
+
+
+

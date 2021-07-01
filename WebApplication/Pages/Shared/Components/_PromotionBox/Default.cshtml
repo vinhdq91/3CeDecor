@@ -1,0 +1,18 @@
+﻿@using DAL.Dtos;
+@model List<StrategyDto>
+<!-- promotion-area start -->
+<div class="promotion-area">
+    <div class="container">
+        <div class="row">
+            @foreach (StrategyDto item in Model)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="single-promo">
+                        <a href="@item.UrlPath"><img style="width:360px;height:234px" src="@item.ImagePath" alt="" /></a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- promotion-area end -->	

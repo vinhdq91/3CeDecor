@@ -1,0 +1,37 @@
+﻿@media (min-width: 576px){
+    .modal-dialog {
+        max-width: 950px;
+        margin: 1.75rem auto;
+    }
+}
+
+.pop-up .modal{
+    overflow: scroll;
+}
+
+button {
+    border: none;
+}
+
+.btn-danger:disabled {
+    color: #fff;
+    background-color: #dc3545;
+    opacity: 0.4;
+}
+
+.user-box {
+    display: none;
+    position: absolute;
+    border: 1px solid #c2c2c2;
+    background: #fff;
+    border-radius: 3px;
+}
+
+ul.navbar-nav li.login span:hover .user-box {
+    display: inline-block !important;
+}
+
+button#logout:hover {
+    color: #0094ff !important;
+    text-decoration: underline;
+}

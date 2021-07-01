@@ -1,0 +1,102 @@
+﻿@model DAL.Dtos.StrategyDto
+@using DAL.Dtos
+
+@{
+    ViewBag.Title = "Create Strategy";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+    List<SelectListItem> listStatus = ViewBag.ListStatus;
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row m-0 bg-light">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Thêm Chiến Dịch</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                        <li class="breadcrumb-item active">Thêm Chiến Dịch</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <section class="pt-2">
+        <div class="container bg-white p-4 card">
+            <partial name="~/Areas/Admin/Views/Shared/_MessgeAlert.cshtml">
+                @using (Html.BeginForm("CreateStrategy", "StrategyAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class=" row ">
+                        <div class="col-md-4">  </div>
+                        <div class="col-md-4"> <h3 class="text-center font-weight-bold text-success "> THÊM CHIẾN DỊCH</h3> </div>
+                        <div class="col-md-4 ">
+                            <div class="float-right">
+                                <button type="submit" class="btn btn-sm bg-success text-white"><i class="far fa-save"></i> Lưu</button>
+                                <a href="~/admin/strategyadmin/strategylist" class="btn btn-sm bg-danger text-white"><i class="far fa-window-close"></i> Hủy</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" row ">
+                        <div class="col-md-8">
+                            <div>
+                                <label for="psw"><span>Tên Chiến Dịch</span></label>
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                            <div>
+                                <label for="psw"><span>Mô tả chiến dịch</span></label>
+                                @Html.TextAreaFor(model => model.Description, new
+                                {
+                                    @class = "form-control textarea",
+                                @style = "width: 100%;font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
+                                })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                            <div>
+                                <label for="psw"><span>MetaTitle</span></label>
+                                @Html.EditorFor(model => model.MetaTitle, new { htmlAttributes = new { @class = "form-control ckeditor" } })
+                                @Html.ValidationMessageFor(model => model.MetaTitle, "", new { @class = "text-danger" })
+                            </div>
+                            <div>
+                                <label for="psw"><span>MetaDescription</span></label>
+                                @Html.EditorFor(model => model.MetaDescription, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MetaDescription, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-8" style="padding-top:10px">
+                            <div>
+                                <label for="psw"><span>Ngày hết hạn</span></label>
+                                @Html.EditorFor(model => model.ExpireDate, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ExpireDate, "", new { @class = "text-danger" })
+                            </div>
+                            <div>
+                                <label for="psw"><span>Avatar</span></label>
+                                <div>
+                                    <span id="imagePreviewSpan">
+                                        @*<img id="img-preview" style="height:30px" src=@("/Resource/StrategyAvatars/" + Model.ImageName) asp-append-version="true" alt="" />*@
+                                    </span>
+                                    @Html.EditorFor(model => model.ImageFile, "", new { htmlAttributes = new { type = "file", @class = "form-control editor-img" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
+                            </div>
+                            <div>
+                                <label for="psw"><span>Trạng Thái (Status)</span></label>
+                                @Html.DropDownListFor(model => model.Status, listStatus, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                }
+        </div>
+    </section>
+</div>
+
+@section Scripts{
+    <script src="~/js/admin.min.js"></script>
+}

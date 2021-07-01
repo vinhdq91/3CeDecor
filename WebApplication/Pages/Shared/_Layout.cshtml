@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="content-language" content="vn">
+    <meta name="geo.region" content="VN" />
+    <meta name="geo.placename" content="HN" />
+    @if (!string.IsNullOrEmpty(ViewBag.MetaFacebook))
+    {
+    @Html.Raw(ViewBag.MetaFacebook)
+    }
+    @if (string.IsNullOrEmpty(ViewBag.NoIndex))
+    {
+    <meta name="robots" content="index,follow" />
+    }
+    else
+    {
+    @Html.Raw(ViewBag.NoIndex)
+    }
+    <title>@Html.Raw(ViewBag.MetaTitle)</title>
+    @Html.Raw(ViewBag.MetaDescription)
+    <link rel="icon" href="~/img/logo/bacelogo1.jpg" type="image/gif" sizes="16x16">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/site.min.css" rel="stylesheet" />
+    <link href="~/css/main.min.css" rel="stylesheet" />
+    <link href="~/css/style.min.css" rel="stylesheet" />
+    <link href="~/css/style-update.min.css" rel="stylesheet" />
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/slicknav.min.css" rel="stylesheet" />
+    <link href="~/css/home-2-color.min.css" rel="stylesheet" />
+    <link href="~/css/responsive.min.css" rel="stylesheet" />
+    <link href="~/css/normalize.min.css" rel="stylesheet" />
+    <link href="~/css/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/css/owl.theme.min.css" rel="stylesheet" />
+    <link href="~/css/owl.transitions.min.css" rel="stylesheet" />
+    <link href="~/css/animate.min.css" rel="stylesheet" />
+    <link href="~/css/owl.transitions.min.css" rel="stylesheet" />
+    <link href="~/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/lib/rs-plugin/css/settings.css" rel="stylesheet" />
+    @RenderSection("Styles", required: false)
+    <partial name="~/Pages/PartialViews/GoogleTagManagerHead.cshtml" />
+    <partial name="~/Pages/PartialViews/GoogleAnalytics.cshtml" />
+</head>
+<body class="home-2">
+    <partial name="~/Pages/PartialViews/GoogleTagManagerBody.cshtml" />
+    <partial name="~/Pages/PartialViews/_Header.cshtml" />
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <partial name="~/Pages/PartialViews/_Footer.cshtml">
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="~/lib/main.min.js"></script>
+    <script src="~/lib/jquery/jquery.slicknav.js"></script>
+    <script src="~/lib/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/lib/jquery/jquery.scrollUp.min.js"></script>
+    <script src="~/lib/jquery/price-slider.min.js"></script>
+    <script src="~/lib/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="~/lib/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+    <script src="~/lib/rs-plugin/rs.home.min.js"></script>
+    @*<script src="~/lib/jquery/jquery.countdown.min.js"></script>*@
+@RenderSection("Scripts", required: false)
+
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '385203755912421',
+                xfbml: true,
+                version: 'v2.5'
+            });
+        };
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <!-- Messenger Chat Plugin Code -->
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <!-- Your Chat Plugin code -->
+    <div class="fb-customerchat"
+         attribution="page_inbox"
+         page_id="106172924491877">
+    </div>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+        document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+        //]]>
+    </script>
+    <script language="JavaScript" type="text/javascript">
+        TrustLogo("https://www.positivessl.com/images/seals/positivessl_trust_seal_lg_222x54.png", "POSDV", "none");
+    </script>
+    </body>
+</html>

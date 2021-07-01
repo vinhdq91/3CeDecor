@@ -1,0 +1,115 @@
+﻿@model DAL.Dtos.GalleryDto
+@using DAL.Dtos
+
+@{
+    ViewBag.Title = "Create Gallery";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+    List<SelectListItem>listType = ViewBag.ListType;
+    List<SelectListItem>listStatus = ViewBag.ListStatus;
+    List<SelectListItem>listWidth = ViewBag.ListWidth;
+    List<SelectListItem>listHeight = ViewBag.ListHeight;
+}
+<!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row m-0 bg-light">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Thêm Ảnh Thư Viện</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                            <li class="breadcrumb-item active">Thêm Ảnh Thư Viện</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <section class="pt-2">
+            <div class="container bg-white p-4 card">
+                <partial name="~/Areas/Admin/Views/Shared/_MessgeAlert.cshtml">
+                    @using (Html.BeginForm("CreateGallery", "GalleryAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class=" row ">
+                            <div class="col-md-4">  </div>
+                            <div class="col-md-4"> <h3 class="text-center font-weight-bold text-success "> THÊM ẢNH THƯ VIỆN</h3> </div>
+                            <div class="col-md-4 ">
+                                <div class="float-right">
+                                    <button type="submit" class="btn btn-sm bg-success text-white"><i class="far fa-save"></i> Lưu</button>
+                                    <a href="~/admin/galleryadmin/gallerylist" class="btn btn-sm bg-danger text-white"><i class="far fa-window-close"></i> Hủy</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row ">
+                            <div class="col-md-8">
+                                <div>
+                                    <label for="psw"><span>Loại ảnh thư viện</span></label>
+                                    @Html.DropDownListFor(model => model.GalleryType, listType, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.GalleryType, "", new { @class = "text-danger" })
+                                </div>
+                                <div>
+                                    <label for="psw"><span>Chọn ảnh</span></label>
+                                    <div>
+                                        <span id="imagePreviewSpan">
+                                        </span>
+                                        @Html.EditorFor(model => model.ImageFile, "", new { htmlAttributes = new { type = "file", @class = "form-control editor-img" } })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
+                                </div>
+                                <div>
+                                    <label for="psw"><span>Chiều dài</span></label>
+                                    @Html.DropDownListFor(model => model.Width, listWidth, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Width, "", new { @class = "text-danger" })
+                                </div>
+                                <div>
+                                    <label for="psw"><span>Chiều cao</span></label>
+                                    @Html.DropDownListFor(model => model.Height, listHeight, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
+                                </div>
+                                <div>
+                                    <label for="psw"><span>Url chuyển tiếp</span></label>
+                                    @Html.EditorFor(model => model.UrlForward, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.UrlForward, "", new { @class = "text-danger" })
+                                </div>
+                                <div>
+                                    <label for="psw"><span>Tên cửa hàng (hiển thị ở slide)</span></label>
+                                    @Html.EditorFor(model => model.SlideName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.SlideName, "", new { @class = "text-danger" })
+                                </div>
+                                <div>
+                                    <label for="psw"><span>Tên Slide</span></label>
+                                    @Html.EditorFor(model => model.SlideTitle, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.SlideTitle, "", new { @class = "text-danger" })
+                                </div>
+                                <div>
+                                    <label for="psw"><span>Nội dung slide</span></label>
+                                    @Html.EditorFor(model => model.SlideContent, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.SlideContent, "", new { @class = "text-danger" })
+                                </div>
+                                <div>
+                                    <label for="psw"><span>Mã màu chữ</span></label>
+                                    @Html.EditorFor(model => model.ColorCode, new { htmlAttributes = new { @class = "form-control", type="color" } })
+                                    @Html.ValidationMessageFor(model => model.ColorCode, "", new { @class = "text-danger" })
+                                </div>
+                                <div>
+                                    <label for="psw"><span>Link Video nhúng trang chủ</span></label>
+                                    @Html.EditorFor(model => model.LinkVideoEmbed, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LinkVideoEmbed, "", new { @class = "text-danger" })
+                                </div>
+                                <div>
+                                    <label for="psw"><span>Trạng Thái (Status)</span></label>
+                                    @Html.DropDownListFor(model => model.Status, listStatus, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+            </div>
+        </section>
+    </div>

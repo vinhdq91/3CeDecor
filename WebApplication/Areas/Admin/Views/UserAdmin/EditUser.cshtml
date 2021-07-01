@@ -1,0 +1,72 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using DAL.Models.Account
+@model ApplicationUserModel
+
+@{
+    ViewBag.Title = "Edit User";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row m-0 bg-light">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Cập Nhật User</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin/useradmin/adminlist">Home</a></li>
+                        <li class="breadcrumb-item active">Cập Nhật User</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <section class="pt-2">
+        <div class="container bg-white p-4 card">
+            <partial name="~/Areas/Admin/Views/Shared/_MessgeAlert.cshtml">
+                @using (Html.BeginForm("EditUser", "UserAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class=" row ">
+                        <div class="col-md-4">  </div>
+                        <div class="col-md-4"> <h3 class="text-center font-weight-bold text-success "> CẬP NHẬT USER</h3> </div>
+                        <div class="col-md-4 ">
+                            <div class="float-right">
+                                <button type="submit" class="btn btn-sm bg-success text-white"><i class="far fa-save"></i> Lưu</button>
+                                <a href="~/admin/useradmin/adminlist" class="btn btn-sm bg-danger text-white"><i class="far fa-window-close"></i> Hủy</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" row ">
+                        <div class="col-md-8">
+                            <label asp-for="UserName" class="col-sm-5 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="UserName" class="form-control" placeholder="Name">
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                                @if (!string.IsNullOrEmpty((string)ViewBag.ErrorMessage))
+                                {
+                                    <span asp-validation-for="UserName" class="text-danger">@ViewBag.ErrorMessage</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" row ">
+                        <div class="col-md-8">
+                            <label asp-for="Email" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input type="email" asp-for="Email" class="form-control" placeholder="Email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="Id" />
+                }
+        </div>
+    </section>
+</div>

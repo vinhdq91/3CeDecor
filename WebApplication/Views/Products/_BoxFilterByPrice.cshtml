@@ -1,0 +1,19 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model DAL.Dtos.ProductSearch;
+<!-- shop-filter start -->
+<div class="shop-filter shop-space">
+    <h2 class="shop-sidebar-title"><span>Lọc theo giá</span></h2>
+    <div class="info_widget">
+        <div class="price_filter">
+            <div id="slider-range"></div>
+            <div class="price_slider_amount">
+                <input type="text" id="priceMin" asp-for="PriceMin" name="PriceMin" placeholder="Add Your Price" />
+                <input type="text" id="priceMax" asp-for="PriceMax" name="PriceMax" placeholder="Add Your Price" />
+                <input type="hidden" id="boxPrice_categoryId" value="@Model.CategoryId" name="CategoryId" />
+                <input type="hidden" id="boxPrice_textSearch" value="@Model.TextSearch" name="TextSearch" />
+                <input type="submit" onclick="productSearch.SearchByPrice()" value="Tìm kiếm" />
+            </div>
+        </div>
+    </div>
+</div>
+<!-- shop-filter end -->

@@ -1,0 +1,215 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model DAL.Dtos.ArticleBlogListModel
+
+@{
+    Layout = "_Layout";
+    string textSearch = ViewBag.TextSearch != null ? ViewBag.TextSearch : "";
+}
+
+<!-- blog-header-area start -->
+<div class="blog-header-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="blog-header-title">
+                    <h1>3CE Blogs</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- blog-header-area end -->
+<!-- breadcrumb-area start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="/">Trang chủ <i class="fa fa-angle-right"></i></a></li>
+                <li>Bài viết</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area end -->
+<!-- blog-main-area start -->
+<div class="blog-main-area blog-right-sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 border-right-side-wrap">
+                <!-- blog start -->
+                @foreach (var item in Model.ListArticles)
+                {
+                    <article class="blog-full">
+                        <!-- post-thumbnail start -->
+                        <div class="post-thumbnail">
+                            <a href="@item.UrlPath">
+                                <img class="lazyload" src=@("~/Resource/AllImages/" + item.ImageIds[0].ImageName) asp-append-version="true" alt="" />
+                            </a>
+                        </div>
+                        <!-- post-thumbnail end -->
+                        <!-- post-wrapper start -->
+                        <div class="post-wrapper">
+                            <div class="post-date">
+                                <span class="day">10</span>
+                                <span class="month">Mar</span>
+                            </div>
+                            <div class="post-info-blog">
+                                <h2 class="post-tile">
+                                    <a href="@item.UrlPath">@item.Title</a>
+                                </h2>
+                                <div class="entry-meta-small">
+                                    Posted by
+                                    <span class="author-info"><a href="@item.UrlPath">@item.Authors</a></span>
+                                </div>
+                                <div class="entry-summary">
+                                    <p>@item.Sapo</p>
+                                </div>
+                                <a class="readmore" href="@item.UrlPath">readmore <i class="fa fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- post-wrapper end -->
+                    </article>
+                    <!-- blog end -->
+                }
+                @Html.RenderAction("Index", "Paging", Model.Paging)
+            </div>
+            <!-- sidebar start -->
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 border-right-side">
+                @Html.RenderAction("ArticleBlogBoxSearch", "ArticleBlogs", new { textSearch = textSearch })      
+                <!-- sidebar-recent-post start -->
+                @*<div class="sidebar-recent-post widget-space">
+                    <h2 class="sidebar-title">Recent Posts</h2>
+                    <ul class="sidebar-menu">
+                        <li><a href="#">Blog image post layout</a></li>
+                        <li><a href="#">Post in Gallery format</a></li>
+                        <li><a href="#">Single post in Audio format</a></li>
+                        <li><a href="#">Post in Video format</a></li>
+                        <li><a href="#">Maecenas ultricies sed odio</a></li>
+                    </ul>
+                </div>*@
+                <!-- sidebar-recent-post start -->
+                <!-- sidebar-recent-comments start -->
+                @*<div class="sidebar-recent-comments widget-space">
+                    <h2 class="sidebar-title">Recent Comments</h2>
+                    <ul>
+                        <li><span><a href="#">admin</a></span> on <span><a href="#">Post in Gallery format</a></span></li>
+                        <li><span><a href="#">admin</a></span> on <span><a href="#">Aenean eu tristique</a></span></li>
+                        <li><span><a href="#">admin</a></span> on <span><a href="#">Vivamus blandit</a></span></li>
+                        <li><span><a href="#">admin</a></span> on <span><a href="#">Pellentesque posuere</a></span></li>
+                        <li><span><a href="#">admin</a></span> on <span><a href="#">Ornare sed consequat</a></span></li>
+                    </ul>
+                </div>*@
+                <!-- sidebar-recent-comments end -->
+                <!-- sidebar-archives start -->
+                @*<div class="sidebar-archives widget-space">
+                    <h2 class="sidebar-title">Recent Posts</h2>
+                    <ul class="sidebar-menu">
+                        <li><a href="#">March 2015</a></li>
+                        <li><a href="#">December 2014</a></li>
+                        <li><a href="#">November 2014</a></li>
+                        <li><a href="#">September 2014</a></li>
+                        <li><a href="#">August 2014</a></li>
+                    </ul>
+                </div>*@
+                <!-- sidebar-archives end -->
+                <!-- sidebar-categories start -->
+                @*<div class="sidebar-categories widget-space">
+                    <h2 class="sidebar-title">Categories</h2>
+                    <ul class="sidebar-menu">
+                        <li><a href="#">Creative</a></li>
+                        <li><a href="#">Fashion</a></li>
+                        <li><a href="#">Image</a></li>
+                        <li><a href="#">Photography</a></li>
+                        <li><a href="#">Travel</a></li>
+                        <li><a href="#">Videos</a></li>
+                    </ul>
+                </div>*@
+                <!-- sidebar-categories end -->
+                <!-- sidebar-meta start -->
+                @*<div class="sidebar-meta widget-space">
+                    <h2 class="sidebar-title">Meta</h2>
+                    <ul class="sidebar-menu">
+                        <li><a href="#">Register</a></li>
+                        <li><a href="#">Log in</a></li>
+                        <li><a href="#">Entries RSS</a></li>
+                        <li><a href="#">Comments RSS</a></li>
+                        <li><a href="#">WordPress.org</a></li>
+                    </ul>
+                </div>*@
+                <!-- sidebar-meta end -->
+                <!-- sidebar-archive-blog start -->
+                @*<div class="sidebar-archive-blog widget-space">
+                    <h2 class="sidebar-title">Blog Archives</h2>
+                    <ul class="sidebar-menu">
+                        <li><a href="#">March 2015</a>(1)</li>
+                        <li><a href="#">December 2014</a>(3)</li>
+                        <li><a href="#">November 2014 </a>(4)</li>
+                        <li><a href="#">September 2014</a>(1)</li>
+                        <li><a href="#">August 2014</a>(1)</li>
+                    </ul>
+                </div>*@
+                <!-- sidebar-archive-blog end -->
+                <!-- sidebar-recent start -->
+                    @Html.RenderAction("RecentPost", "ArticleBlogs")
+                    <!-- sidebar-recent end -->
+                    <!-- sidebar-recent start -->
+                    @*<div class="sidebar-archive-blog widget-space">
+            <h2 class="sidebar-title">Comments</h2>
+            <ul class="recent-comments-menu">
+                <li>
+                    <div class="recent-comments-img">
+                        <div class="recent-comments-photo">
+                            <a href="#"><img src="img/blog/comments/2.jpg" alt="" /></a>
+                        </div>
+                        <div class="recent-comments-content">
+                            <p>admin says:</p>
+                            <span><a href="#">venenatis gravida ipsum....</a></span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="recent-comments-img">
+                        <div class="recent-comments-photo">
+                            <a href="#"><img src="img/blog/comments/1.jpg" alt="" /></a>
+                        </div>
+                        <div class="recent-comments-content">
+                            <p>demo says:</p>
+                            <span><a href="#">Quisque semper nunc vitae...</a></span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="recent-comments-img">
+                        <div class="recent-comments-photo">
+                            <a href="#"><img src="img/blog/comments/2.jpg" alt="" /></a>
+                        </div>
+                        <div class="recent-comments-content">
+                            <p>admin says:</p>
+                            <span><a href="#">Quisque orci nibh, porta...</a></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>*@
+                    <!-- sidebar-recent end -->
+                    <!-- sidebar-tags start -->
+                    @*<div class="sidebar-tags">
+            <h2 class="sidebar-title">Tags</h2>
+            <ul class="tag-list">
+                <li><a href="#">asian</a></li>
+                <li><a href="#">brown</a></li>
+                <li><a href="#">euro</a></li>
+                <li><a href="#">fashion</a></li>
+                <li><a href="#">france</a></li>
+                <li><a href="#">t-shirt</a></li>
+                <li><a href="#">teen</a></li>
+                <li><a href="#">white</a></li>
+            </ul>
+        </div>*@
+                    <!-- sidebar-tags start -->
+</div>
+            <!-- sidebar end -->
+        </div>
+    </div>
+</div>
+<!-- blog-main-area end -->

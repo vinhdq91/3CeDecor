@@ -1,0 +1,11 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model DAL.Dtos.ArticleBlogSearch
+<!-- blog-search start -->
+<div class="blog-search widget-space">
+    <h2 class="sidebar-title">Search</h2>
+    <div class="blog-search-form">
+        <input type="text" value="@Model.TextSearch" id="textSearchArticle" name="TextSearch" placeholder="Tìm kiếm blog..." />
+        <button onclick="articleSearch.SearchArticleByText()"><i class="fa fa-search"></i></button>
+    </div>
+</div>
+<!-- blog-search start -->

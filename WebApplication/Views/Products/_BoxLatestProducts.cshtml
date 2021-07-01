@@ -1,0 +1,38 @@
+﻿@using DAL.Common;
+@model IEnumerable<DAL.Dtos.ProductDto>
+@{
+    string className = "";
+}
+
+<!-- shop-featured start -->
+<div class="shop-featured shop-space">
+    <h2 class="shop-sidebar-title"><span>Sản phẩm mới nhất</span></h2>
+    @foreach (DAL.Dtos.ProductDto item in Model)
+    {
+        <div class="shop-product">
+            <div class="shop-pro-img">
+                <a href="@item.UrlPath">
+                    <img class="lazyload" style="width:105px;height:140px"
+                         src=@(ViewBag.PathBase + item.ImageIds.ToList()[0].ImageName) asp-append-version="true" title="@item.Name." alt="@item.Name" />
+                </a>
+            </div>
+            <div class="shop-pro-content">
+                <h3 class="shop-pro-name"><a href="@item.UrlPath">@item.Name</a></h3>
+                <div class="shop-price product-content">
+                    @if (item.Discount > 0)
+                    {
+                        <span class="showp-new old-price">@Common.FomatPrice(item.Price)</span>
+                    }
+                    <span class="showp-new pro-price">@Common.FomatPrice(((item.Price - (item.Price * (decimal)item.Discount) / 100)))</span>
+                </div>
+                <div class="shop-rating">
+                    <a href="#"><i class="fa fa-star"></i></a>
+                    <a href="#"><i class="fa fa-star"></i></a>
+                    <a href="#"><i class="fa fa-star"></i></a>
+                    <a href="#"><i class="fa fa-star"></i></a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<!-- shop-featured end -->
